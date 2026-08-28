@@ -1,25 +1,21 @@
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
     // التأكد من أن الطلب POST
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { prompt } = req.body;
-    
-    // سحب الـ API Key من متغيرات البيئة في Vercel
+    const { prompt } = req.body || {};
     const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
     if (!GEMINI_API_KEY) {
-        return res.status(500).json({ error: 'API Key is missing in server configuration' });
+        return res.status(500).json({ reply: "خطأ: لم يتم العثور على مفتاح الـ API في إعدادات Vercel." });
     }
 
     const SYSTEM_INSTRUCTION = `
 أنت مساعد ذكي متخصص في السيرة النبوية الشريفة لموقع "سِراج السيرة".
 - أجب عن أسئلة المستخدم بأسلوب محترم وواضح ومبسط.
 - اعتمد حصرياً على أمهات كتب السيرة (مثل: الرحيق المختوم، السيرة النبوية لابن هشام، زاد المعاد).
-- اذكر اسم المصدر/المرجع في نهاية كل إجابة.
-- إذا كان السؤال خارج نطاق السيرة النبوية، اعتذر بأسلوب لَبِق ووجه المستخدم للسؤال عن السيرة.
-- لا تجسد أو تصور النبي ﷺ أو الصحابة بأي شكل.
+- اذكر اسم المصدر/المرجع في نهاية كل إجابة بالشكل: المصدر: [اسم الكتاب].
 `;
 
     try {
@@ -39,10 +35,17 @@ export default async function handler(req, res) {
         });
 
         const data = await response.json();
-        const textResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "عذراً، لم أستطع العثور على إجابة مناسبة.";
 
+        if (data.error) {
+            console.error("Gemini API Error:", data.error);
+            return res.status(500).json({ reply: `خطأ من الذكاء الاصطناعي: ${data.error.message}` });
+        }
+
+        const textResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "لم أستطع العثور على إجابة مناسبة.";
         return res.status(200).json({ reply: textResponse });
+
     } catch (error) {
-        return res.status(500).json({ error: 'حدث خطأ أثناء الاتصال بالذكاء الاصطناعي.' });
+        console.error("Server Error:", error);
+        return res.status(500).json({ reply: "حدث خطأ أثناء الاتصال بالسيرفر، يرجى المحاولة لاحقاً." });
     }
-}
+};
