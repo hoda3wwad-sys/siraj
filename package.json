@@ -1,0 +1,9 @@
+{
+  "name": "siraj-al-seerah",
+  "version": "1.0.0",
+  "private": true,
+  "description": "موقع سِراج - سيرة النبي ﷺ بمساعدة الذكاء الاصطناعي",
+  "scripts": {
+    "dev": "vercel dev"
+  }
+}

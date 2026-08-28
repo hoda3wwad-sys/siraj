@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سِراج — سيرة خير الأنام ﷺ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Reem+Kufi:wght@400;500;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep: #070c14;
+    --bg-panel: #0d1726;
+    --bg-panel-2: #101f33;
+    --gold: #c8a13a;
+    --gold-light: #e9cf82;
+    --gold-dim: #7d692a;
+    --emerald: #123a2c;
+    --emerald-light: #1e5a44;
+    --parchment: #f3ead2;
+    --muted: #8fa0b3;
+    --line: rgba(200,161,58,0.18);
+    --font-display: 'Aref Ruqaa', serif;
+    --font-kufi: 'Reem Kufi', sans-serif;
+    --font-body: 'IBM Plex Sans Arabic', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 50% -10%, rgba(200,161,58,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 90% 20%, rgba(30,90,68,0.12), transparent 60%),
+      var(--bg-deep);
+    color: var(--parchment);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+  }
+  ::selection{ background: var(--gold-dim); color: var(--parchment); }
+  a{ color: inherit; text-decoration:none; }
+
+  /* subtle geometric star pattern overlay */
+  .star-field{
+    position: fixed; inset:0; pointer-events:none; z-index:0; opacity:0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23c8a13a' stroke-width='0.8'%3E%3Cpath d='M60 10 L74 46 L110 46 L81 68 L92 104 L60 82 L28 104 L39 68 L10 46 L46 46 Z'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 160px 160px;
+  }
+
+  header{
+    position: sticky; top:0; z-index: 50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 6vw;
+    backdrop-filter: blur(14px);
+    background: rgba(7,12,20,0.72);
+    border-bottom: 1px solid var(--line);
+  }
+  .brand{ display:flex; align-items:center; gap:10px; }
+  .brand svg{ width:30px; height:30px; }
+  .brand span{ font-family: var(--font-display); font-size: 1.5rem; color: var(--gold-light); letter-spacing:1px; }
+  nav{ display:flex; gap: 34px; font-family: var(--font-kufi); font-size:0.92rem; color: var(--muted); }
+  nav a:hover{ color: var(--gold-light); }
+  @media (max-width: 820px){ nav{ display:none; } }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative; z-index:1;
+    min-height: 92vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding: 80px 6vw 40px;
+  }
+  .lantern-wrap{ width:120px; height:150px; margin-bottom: 18px; position:relative; }
+  .lantern-glow{
+    position:absolute; inset:-60px; border-radius:50%;
+    background: radial-gradient(circle, rgba(233,207,130,0.35) 0%, rgba(200,161,58,0.08) 45%, transparent 70%);
+    animation: breathe 4.5s ease-in-out infinite;
+    filter: blur(2px);
+  }
+  @keyframes breathe{
+    0%,100%{ transform: scale(0.92); opacity:0.75; }
+    50%{ transform: scale(1.12); opacity:1; }
+  }
+  .eyebrow{
+    font-family: var(--font-kufi); letter-spacing: 3px; font-size: 0.78rem;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 18px;
+    border: 1px solid var(--line); padding: 6px 18px; border-radius: 999px;
+    background: rgba(200,161,58,0.06);
+  }
+  .hero h1{
+    font-family: var(--font-display); font-weight:700;
+    font-size: clamp(3.2rem, 10vw, 7rem);
+    line-height:1;
+    background: linear-gradient(180deg, var(--gold-light) 10%, var(--gold) 55%, #a5822f 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    text-shadow: 0 0 60px rgba(200,161,58,0.25);
+    margin-bottom: 6px;
+  }
+  .hero .tagline{
+    font-family: var(--font-display); font-size: clamp(1.2rem, 3vw, 1.7rem);
+    color: var(--parchment); opacity:0.92; margin-bottom: 10px;
+  }
+  .hero .desc{
+    max-width: 560px; color: var(--muted); font-size: 1rem; line-height:1.9;
+    margin-bottom: 40px;
+  }
+
+  /* chat — the primary hero element */
+  .chat-hero{
+    width: min(760px, 92vw);
+    background: linear-gradient(180deg, rgba(16,31,51,0.9), rgba(13,23,38,0.9));
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 10px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03);
+    position:relative;
+  }
+  .chat-hero::before{
+    content:''; position:absolute; inset:-1px; border-radius:22px; padding:1px;
+    background: linear-gradient(120deg, var(--gold-dim), transparent 30%, transparent 70%, var(--emerald-light));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    pointer-events:none; opacity:0.6;
+  }
+  .chat-thread{ padding: 18px 20px 8px; text-align: right; display:flex; flex-direction:column; gap:14px; max-height: 340px; overflow-y:auto; scroll-behavior:smooth; }
+  .chat-thread::-webkit-scrollbar{ width:5px; }
+  .chat-thread::-webkit-scrollbar-thumb{ background: var(--gold-dim); border-radius:10px; }
+  .bubble.ai.typing{ display:flex; align-items:center; gap:6px; padding:14px 18px; }
+  .bubble.ai.typing span{ width:6px; height:6px; border-radius:50%; background: var(--gold-light); opacity:0.5; animation: blink 1.2s infinite; }
+  .bubble.ai.typing span:nth-child(2){ animation-delay:0.2s; }
+  .bubble.ai.typing span:nth-child(3){ animation-delay:0.4s; }
+  @keyframes blink{ 0%,100%{opacity:0.25;} 50%{opacity:0.9;} }
+  .bubble.ai.error{ border-color: rgba(180,70,60,0.4); background: rgba(120,40,35,0.18); color:#e8b8b0; }
+  .bubble{ max-width: 82%; padding: 12px 16px; border-radius: 14px; font-size:0.95rem; line-height:1.8; }
+  .bubble.user{ align-self:flex-start; background: rgba(200,161,58,0.12); border:1px solid var(--line); color: var(--gold-light); border-bottom-left-radius:4px; }
+  .bubble.ai{ align-self:flex-end; background: rgba(30,90,68,0.18); border:1px solid rgba(30,90,68,0.4); color: var(--parchment); border-bottom-right-radius:4px; }
+  .bubble.ai .src{ display:block; margin-top:8px; font-size:0.72rem; color: var(--muted); font-family: var(--font-kufi); }
+  .chat-input-row{
+    display:flex; align-items:center; gap:10px;
+    background: var(--bg-deep); border: 1px solid var(--line); border-radius: 14px;
+    padding: 8px 8px 8px 8px; margin: 8px;
+  }
+  .chat-input-row input{
+    flex:1; background:transparent; border:none; outline:none; color: var(--parchment);
+    font-family: var(--font-body); font-size: 1rem; padding: 10px 14px; text-align:right;
+  }
+  .chat-input-row input::placeholder{ color: #5c6c7e; }
+  .send-btn{
+    width:42px; height:42px; border-radius:11px; border:none; cursor:pointer;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    transition: transform 0.2s ease;
+  }
+  .send-btn:hover{ transform: scale(1.06); }
+  .send-btn svg{ width:18px; height:18px; }
+  .chat-suggest{ display:flex; gap:10px; flex-wrap:wrap; padding: 4px 20px 16px; justify-content:flex-end; }
+  .chat-suggest button{
+    font-family: var(--font-body); font-size: 0.82rem; color: var(--muted);
+    background: rgba(255,255,255,0.03); border: 1px solid var(--line);
+    padding: 7px 14px; border-radius: 999px; cursor:pointer; transition: all .2s ease;
+  }
+  .chat-suggest button:hover{ color: var(--gold-light); border-color: var(--gold-dim); background: rgba(200,161,58,0.08); }
+
+  /* section shared */
+  section{ position:relative; z-index:1; padding: 100px 6vw; }
+  .section-head{ text-align:center; max-width: 640px; margin: 0 auto 60px; }
+  .section-head .eyebrow{ display:inline-block; }
+  .section-head h2{ font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3rem); color: var(--gold-light); margin: 16px 0 12px; }
+  .section-head p{ color: var(--muted); line-height:1.9; }
+  .divider{
+    width: 90px; height:1px; margin: 24px auto 0;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline{ max-width: 920px; margin: 0 auto; position:relative; }
+  .timeline::before{
+    content:''; position:absolute; top:0; bottom:0; right: 29px;
+    width:2px; background: linear-gradient(180deg, transparent, var(--gold-dim) 8%, var(--gold-dim) 92%, transparent);
+  }
+  @media (max-width: 700px){ .timeline::before{ right: 21px; } }
+  .t-item{ position:relative; padding-right: 78px; margin-bottom: 46px; }
+  @media (max-width: 700px){ .t-item{ padding-right: 56px; } }
+  .t-dot{
+    position:absolute; right: 15px; top: 6px; width: 30px; height:30px; border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, var(--gold-light), var(--gold) 60%, var(--gold-dim));
+    box-shadow: 0 0 0 6px var(--bg-deep), 0 0 22px rgba(200,161,58,0.45);
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--font-kufi); font-size:0.68rem; color:#251c05; font-weight:700;
+  }
+  @media (max-width: 700px){ .t-dot{ width:24px; height:24px; right:9px; font-size:0.6rem; } }
+  .t-card{
+    background: rgba(16,31,51,0.55); border: 1px solid var(--line); border-radius: 16px;
+    padding: 22px 26px; backdrop-filter: blur(8px);
+    transition: border-color .25s ease, transform .25s ease, background .25s ease;
+  }
+  .t-card:hover{ border-color: var(--gold-dim); transform: translateX(-4px); background: rgba(16,31,51,0.8); }
+  .t-card .meta{ display:flex; gap:14px; align-items:center; margin-bottom:10px; flex-wrap:wrap; }
+  .t-card .year{ font-family: var(--font-kufi); color: var(--gold); font-size:0.85rem; }
+  .t-card .place{ font-family: var(--font-kufi); color: var(--emerald-light); font-size:0.8rem; background: rgba(30,90,68,0.25); padding:3px 12px; border-radius:999px; border:1px solid rgba(30,90,68,0.5); }
+  .t-card h3{ font-family: var(--font-display); font-size: 1.5rem; color: var(--parchment); margin-bottom: 8px; }
+  .t-card p{ color: var(--muted); line-height:1.85; font-size:0.94rem; }
+
+  /* ===== GALLERY ===== */
+  .gallery-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; }
+  @media (max-width: 900px){ .gallery-grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 600px){ .gallery-grid{ grid-template-columns: 1fr; } }
+  .g-card{
+    border-radius: 18px; overflow:hidden; border: 1px solid var(--line);
+    background: linear-gradient(160deg, var(--bg-panel-2), var(--bg-panel));
+    position:relative; cursor:pointer; transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .g-card:hover{ transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+  .g-art{ height: 170px; display:flex; align-items:center; justify-content:center; background: radial-gradient(circle at 50% 30%, rgba(200,161,58,0.10), transparent 70%); }
+  .g-art svg{ width: 80%; height:80%; }
+  .g-info{ padding: 16px 18px 20px; }
+  .g-info h4{ font-family: var(--font-display); font-size:1.15rem; color: var(--gold-light); margin-bottom:6px; }
+  .g-info p{ color: var(--muted); font-size:0.85rem; line-height:1.7; }
+
+  /* ===== SOURCES ===== */
+  .sources-list{ max-width: 780px; margin: 0 auto; display:flex; flex-direction:column; gap:14px; }
+  .src-row{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding: 18px 24px; border-radius: 14px; border: 1px solid var(--line);
+    background: rgba(16,31,51,0.4);
+  }
+  .src-row .name{ font-family: var(--font-display); font-size:1.15rem; color: var(--parchment); }
+  .src-row .author{ color: var(--muted); font-size:0.82rem; margin-top:4px; }
+  .src-tag{ font-family: var(--font-kufi); font-size:0.72rem; color: var(--gold); border:1px solid var(--gold-dim); padding: 5px 12px; border-radius:999px; white-space:nowrap; }
+
+  footer{
+    position:relative; z-index:1; text-align:center; padding: 50px 6vw 40px;
+    border-top: 1px solid var(--line); color: var(--muted); font-size:0.85rem;
+  }
+  footer .fbrand{ font-family: var(--font-display); color: var(--gold-light); font-size:1.4rem; margin-bottom:10px; }
+</style>
+</head>
+<body>
+<div class="star-field"></div>
+
+<header>
+  <div class="brand">
+    <svg viewBox="0 0 40 40" fill="none">
+      <path d="M20 4 L20 14" stroke="#c8a13a" stroke-width="1.5"/>
+      <path d="M13 14 Q20 8 27 14 L25 30 Q20 34 15 30 Z" fill="#c8a13a" fill-opacity="0.18" stroke="#e9cf82" stroke-width="1.2"/>
+      <circle cx="20" cy="20" r="3.5" fill="#e9cf82"/>
+      <path d="M15 32 L25 32 L23 36 L17 36 Z" fill="#7d692a"/>
+    </svg>
+    <span>سِراج</span>
+  </div>
+  <nav>
+    <a href="#chat">اسأل السِراج</a>
+    <a href="#timeline">الغزوات</a>
+    <a href="#seerah">السيرة</a>
+    <a href="#gallery">المعرض</a>
+    <a href="#sources">المصادر</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="chat">
+  <div class="lantern-wrap">
+    <div class="lantern-glow"></div>
+    <svg viewBox="0 0 120 150" style="position:relative;">
+      <line x1="60" y1="0" x2="60" y2="20" stroke="#c8a13a" stroke-width="2"/>
+      <path d="M40 20 Q60 6 80 20 L76 90 Q60 104 44 90 Z" fill="url(#lg)" stroke="#e9cf82" stroke-width="1.5"/>
+      <ellipse cx="60" cy="55" rx="10" ry="16" fill="#e9cf82" opacity="0.85"/>
+      <path d="M44 100 L76 100 L70 116 L50 116 Z" fill="#7d692a"/>
+      <path d="M50 116 L70 116 L66 130 L54 130 Z" fill="#5c4d1e"/>
+      <defs>
+        <linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#c8a13a" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#123a2c" stop-opacity="0.35"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+  <div class="eyebrow">سِراجاً مُنيراً</div>
+  <h1>سِراج</h1>
+  <div class="tagline">تعرّف على سيرة خير خلق الله ﷺ</div>
+  <p class="desc">مساعد ذكاء اصطناعي يروي لك السيرة النبوية بدقة وأمانة، ويستند في كل إجابة إلى مصادرها الموثوقة — من المولد إلى حجة الوداع.</p>
+
+  <div class="chat-hero">
+    <div class="chat-thread" id="chatThread">
+      <div class="bubble user">متى وقعت غزوة بدر الكبرى؟</div>
+      <div class="bubble ai">
+        وقعت غزوة بدر في السابع عشر من رمضان، السنة الثانية للهجرة، بين المسلمين وقريش، وانتهت بنصر المسلمين رغم قلة عددهم.
+        <span class="src">المصدر: السيرة النبوية لابن هشام</span>
+      </div>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" id="chatInput" placeholder="اسأل عن السيرة النبوية..." autocomplete="off">
+      <button class="send-btn" id="sendBtn" aria-label="إرسال">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L20 4L14 20L11 13L4 12Z" fill="#0d1726"/></svg>
+      </button>
+    </div>
+    <div class="chat-suggest" id="chatSuggest">
+      <button data-q="من شارك في غزوة أُحد؟">من شارك في غزوة أُحد؟</button>
+      <button data-q="كيف كانت هجرة النبي ﷺ؟">كيف كانت هجرة النبي ﷺ؟</button>
+      <button data-q="ماذا حدث في فتح مكة؟">ماذا حدث في فتح مكة؟</button>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="section-head">
+    <span class="eyebrow">جدول زمني تفاعلي</span>
+    <h2>الغزوات والأحداث</h2>
+    <p>محطات فاصلة في السيرة النبوية، مرتبة زمنياً بتاريخها ومكانها وأبرز أحداثها ونتائجها.</p>
+    <div class="divider"></div>
+  </div>
+  <div class="timeline">
+
+    <div class="t-item">
+      <div class="t-dot">١</div>
+      <div class="t-card">
+        <div class="meta"><span class="year">١ هـ — ربيع الأول</span><span class="place">مكة → المدينة</span></div>
+        <h3>الهجرة النبوية</h3>
+        <p>خروج النبي ﷺ من مكة إلى المدينة المنورة هرباً بدينه من أذى قريش، ونزوله بقباء ثم يثرب، لتبدأ مرحلة بناء الدولة الإسلامية الأولى.</p>
+      </div>
+    </div>
+
+    <div class="t-item">
+      <div class="t-dot">٢</div>
+      <div class="t-card">
+        <div class="meta"><span class="year">٢ هـ — ١٧ رمضان</span><span class="place">بدر</span></div>
+        <h3>غزوة بدر الكبرى</h3>
+        <p>أول معركة كبرى بين المسلمين وقريش، خاضها المسلمون بعدد قليل مقابل جيش أكبر عدداً وعتاداً، وانتهت بنصر حاسم وصفه القرآن بـ"يوم الفرقان".</p>
+      </div>
+    </div>
+
+    <div class="t-item">
+      <div class="t-dot">٣</div>
+      <div class="t-card">
+        <div class="meta"><span class="year">٣ هـ — شوال</span><span class="place">جبل أُحد</span></div>
+        <h3>غزوة أُحد</h3>
+        <p>معركة قرب المدينة، شهدت دروساً في الطاعة والانضباط بعد أن غيّر بعض الرماة موقعهم، وتضمنت استشهاد عدد من كبار الصحابة.</p>
+      </div>
+    </div>
+
+    <div class="t-item">
+      <div class="t-dot">٤</div>
+      <div class="t-card">
+        <div class="meta"><span class="year">٥ هـ — شوال</span><span class="place">المدينة المنورة</span></div>
+        <h3>غزوة الخندق (الأحزاب)</h3>
+        <p>حصار جيوش الأحزاب للمدينة، وقد اقترح سلمان الفارسي حفر خندق حول المدينة، وهي أول مرة يُستخدم فيها هذا الأسلوب الدفاعي في جزيرة العرب.</p>
+      </div>
+    </div>
+
+    <div class="t-item">
+      <div class="t-dot">٥</div>
+      <div class="t-card">
+        <div class="meta"><span class="year">٦ هـ — ذو القعدة</span><span class="place">الحديبية</span></div>
+        <h3>صلح الحديبية</h3>
+        <p>معاهدة سلام بين المسلمين وقريش سبقت فتح مكة، وصفها القرآن بـ"الفتح المبين" لما فتحته من طرق للدعوة استمرت سنوات لاحقة.</p>
+      </div>
+    </div>
+
+    <div class="t-item">
+      <div class="t-dot">٦</div>
+      <div class="t-card">
+        <div class="meta"><span class="year">٨ هـ — رمضان</span><span class="place">مكة المكرمة</span></div>
+        <h3>فتح مكة</h3>
+        <p>دخول المسلمين مكة دون قتال يُذكر، وإعلان النبي ﷺ العفو العام عن أهلها، وتطهير الكعبة من الأصنام.</p>
+      </div>
+    </div>
+
+    <div class="t-item">
+      <div class="t-dot">٧</div>
+      <div class="t-card">
+        <div class="meta"><span class="year">١٠ هـ — ذو الحجة</span><span class="place">عرفة</span></div>
+        <h3>حجة الوداع</h3>
+        <p>الحجة الوحيدة التي أداها النبي ﷺ، وفيها ألقى خطبته الجامعة التي أرسى فيها قواعد العدل والمساواة، وأتم الله فيها الدين.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SEERAH OVERVIEW -->
+<section id="seerah" style="background: linear-gradient(180deg, transparent, rgba(18,58,44,0.08), transparent);">
+  <div class="section-head">
+    <span class="eyebrow">رحلة العمر</span>
+    <h2>محطات السيرة النبوية</h2>
+    <p>من المولد إلى حجة الوداع، تعرف على مراحل حياة النبي ﷺ عبر المساعد الذكي أو الجدول الزمني.</p>
+    <div class="divider"></div>
+  </div>
+  <div class="gallery-grid">
+    <div class="g-card"><div class="g-art">
+      <svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="14" fill="none" stroke="#e9cf82" stroke-width="1.2"/><path d="M20 80 Q50 55 80 80" fill="none" stroke="#c8a13a" stroke-width="1.2"/></svg>
+    </div><div class="g-info"><h4>المولد الشريف</h4><p>عام الفيل، بمكة المكرمة</p></div></div>
+
+    <div class="g-card"><div class="g-art">
+      <svg viewBox="0 0 100 100"><path d="M50 15 L58 45 L88 45 L64 62 L72 90 L50 72 L28 90 L36 62 L12 45 L42 45 Z" fill="none" stroke="#e9cf82" stroke-width="1.2"/></svg>
+    </div><div class="g-info"><h4>البعثة النبوية</h4><p>نزول الوحي في غار حراء</p></div></div>
+
+    <div class="g-card"><div class="g-art">
+      <svg viewBox="0 0 100 100"><path d="M15 60 Q50 20 85 60" fill="none" stroke="#c8a13a" stroke-width="1.2"/><circle cx="50" cy="60" r="4" fill="#e9cf82"/></svg>
+    </div><div class="g-info"><h4>الدعوة في مكة</h4><p>ثلاث عشرة سنة من الصبر والبلاغ</p></div></div>
+
+    <div class="g-card"><div class="g-art">
+      <svg viewBox="0 0 100 100"><path d="M20 70 L50 20 L80 70 Z" fill="none" stroke="#1e5a44" stroke-width="1.2"/><path d="M35 70 L35 50 L65 50 L65 70" fill="none" stroke="#e9cf82" stroke-width="1"/></svg>
+    </div><div class="g-info"><h4>المدينة المنورة</h4><p>بناء المسجد والمجتمع الجديد</p></div></div>
+
+    <div class="g-card"><div class="g-art">
+      <svg viewBox="0 0 100 100"><path d="M10 55 L90 55" stroke="#c8a13a" stroke-width="1" stroke-dasharray="3 4"/><path d="M30 55 L45 40 L60 55 L75 40" fill="none" stroke="#e9cf82" stroke-width="1.2"/></svg>
+    </div><div class="g-info"><h4>الغزوات</h4><p>من بدر إلى فتح مكة</p></div></div>
+
+    <div class="g-card"><div class="g-art">
+      <svg viewBox="0 0 100 100"><path d="M50 10 L54 40 L84 40 L60 58 L68 88 L50 68 L32 88 L40 58 L16 40 L46 40 Z" fill="#e9cf82" fill-opacity="0.15" stroke="#e9cf82" stroke-width="1"/></svg>
+    </div><div class="g-info"><h4>حجة الوداع</h4><p>الخطبة الجامعة وإتمام الدين</p></div></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-head">
+    <span class="eyebrow">معرض توضيحي</span>
+    <h2>خرائط وزخارف تاريخية</h2>
+    <p>صور توضيحية وخرائط ورسوم زخرفية — من غير أي تصوير للنبي ﷺ أو الصحابة الكرام، التزاماً بالأدب الشرعي.</p>
+    <div class="divider"></div>
+  </div>
+  <div class="gallery-grid">
+    <div class="g-card"><div class="g-art">
+      <svg viewBox="0 0 120 100"><rect x="10" y="60" width="100" height="4" fill="#1e5a44" opacity="0.6"/><path d="M20 60 Q30 20 45 60" fill="none" stroke="#c8a13a" stroke-width="1"/><path d="M55 60 Q70 10 85 60" fill="none" stroke="#c8a13a" stroke-width="1"/><path d="M95 60 Q100 40 105 60" fill="none" stroke="#c8a13a" stroke-width="1"/></svg>
+    </div><div class="g-info"><h4>خريطة الجزيرة العربية</h4><p>مسارات الدعوة والهجرة بين مكة والمدينة</p></div></div>
+
+    <div class="g-card"><div class="g-art">
+      <svg viewBox="0 0 100 100"><g fill="none" stroke="#e9cf82" stroke-width="0.8"><path d="M50 10 L61 33 L86 33 L66 49 L74 74 L50 59 L26 74 L34 49 L14 33 L39 33 Z"/><circle cx="50" cy="50" r="38"/></g></svg>
+    </div><div class="g-info"><h4>زخرفة هندسية إسلامية</h4><p>نجمة ثمانية بأسلوب المشربية التقليدي</p></div></div>
+
+    <div class="g-card"><div class="g-art">
+      <svg viewBox="0 0 100 100"><path d="M25 75 L25 40 Q50 15 75 40 L75 75" fill="none" stroke="#c8a13a" stroke-width="1.2"/><line x1="15" y1="75" x2="85" y2="75" stroke="#c8a13a" stroke-width="1.2"/><rect x="47" y="55" width="6" height="20" fill="#c8a13a" opacity="0.4"/></svg>
+    </div><div class="g-info"><h4>المسجد النبوي</h4><p>رسم تخطيطي لمعالم المسجد الأولى</p></div></div>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<section id="sources">
+  <div class="section-head">
+    <span class="eyebrow">أمانة النقل</span>
+    <h2>المصادر والمراجع</h2>
+    <p>كل معلومة يقدمها السِراج مبنية على مصدر موثّق، تجدونه إلى جانب الإجابة دائماً.</p>
+    <div class="divider"></div>
+  </div>
+  <div class="sources-list">
+    <div class="src-row"><div><div class="name">السيرة النبوية</div><div class="author">ابن هشام</div></div><span class="src-tag">مرجع أساسي</span></div>
+    <div class="src-row"><div><div class="name">زاد المعاد في هدي خير العباد</div><div class="author">ابن قيّم الجوزية</div></div><span class="src-tag">مرجع أساسي</span></div>
+    <div class="src-row"><div><div class="name">الرحيق المختوم</div><div class="author">صفي الرحمن المباركفوري</div></div><span class="src-tag">مرجع معتمد</span></div>
+    <div class="src-row"><div><div class="name">تاريخ الطبري</div><div class="author">محمد بن جرير الطبري</div></div><span class="src-tag">مرجع تاريخي</span></div>
+    <div class="src-row"><div><div class="name">صحيح البخاري ومسلم</div><div class="author">أحاديث السيرة الصحيحة</div></div><span class="src-tag">مصدر حديثي</span></div>
+  </div>
+</section>
+
+<footer>
+  <div class="fbrand">سِراج</div>
+  <p>"وَدَاعِيًا إِلَى اللَّهِ بِإِذْنِهِ وَسِرَاجًا مُّنِيرًا" — الأحزاب: ٤٦</p>
+</footer>
+
+<script>
+(function(){
+  const thread = document.getElementById('chatThread');
+  const input = document.getElementById('chatInput');
+  const sendBtn = document.getElementById('sendBtn');
+  const suggestRow = document.getElementById('chatSuggest');
+
+  // ملاحظة: الـ System Prompt الآن موجود في السيرفر (api/chat.js) وليس هنا،
+  // عشان أي حد يقدر يشوف كود الموقع من غير ما يقدر يغيّر تعليمات المساعد أو ياخد المفتاح.
+
+  let history = [
+    { role: 'user', content: 'متى وقعت غزوة بدر الكبرى؟' },
+    { role: 'assistant', content: 'وقعت غزوة بدر في السابع عشر من رمضان، السنة الثانية للهجرة، بين المسلمين وقريش، وانتهت بنصر المسلمين رغم قلة عددهم.\nالمصدر: السيرة النبوية لابن هشام' }
+  ];
+
+  function scrollToBottom(){ thread.scrollTop = thread.scrollHeight; }
+
+  function addUserBubble(text){
+    const div = document.createElement('div');
+    div.className = 'bubble user';
+    div.textContent = text;
+    thread.appendChild(div);
+    scrollToBottom();
+  }
+
+  function addTypingBubble(){
+    const div = document.createElement('div');
+    div.className = 'bubble ai typing';
+    div.id = 'typingBubble';
+    div.innerHTML = '<span></span><span></span><span></span>';
+    thread.appendChild(div);
+    scrollToBottom();
+    return div;
+  }
+
+  function splitAnswerAndSource(text){
+    const marker = text.lastIndexOf('المصدر');
+    if (marker !== -1 && marker > text.length - 220) {
+      return { answer: text.slice(0, marker).trim(), source: text.slice(marker).trim() };
+    }
+    return { answer: text.trim(), source: null };
+  }
+
+  function replaceTypingWithAnswer(fullText){
+    const typing = document.getElementById('typingBubble');
+    const { answer, source } = splitAnswerAndSource(fullText);
+    const div = document.createElement('div');
+    div.className = 'bubble ai';
+    div.innerText = answer;
+    if (source){
+      const src = document.createElement('span');
+      src.className = 'src';
+      src.textContent = source;
+      div.appendChild(src);
+    }
+    typing.replaceWith(div);
+    scrollToBottom();
+  }
+
+  function replaceTypingWithError(){
+    const typing = document.getElementById('typingBubble');
+    const div = document.createElement('div');
+    div.className = 'bubble ai error';
+    div.textContent = 'تعذّر الوصول للمساعد الآن، حاول مرة أخرى بعد لحظات.';
+    typing.replaceWith(div);
+    scrollToBottom();
+  }
+
+  async function sendMessage(text){
+    if (!text || !text.trim()) return;
+    input.value = '';
+    input.disabled = true;
+    sendBtn.disabled = true;
+
+    addUserBubble(text);
+    history.push({ role: 'user', content: text });
+    addTypingBubble();
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history })
+      });
+
+      if (!response.ok) throw new Error('API error: ' + response.status);
+      const data = await response.json();
+      const reply = data.reply || 'لم أتمكن من صياغة إجابة، حاول بسؤال آخر.';
+
+      history.push({ role: 'assistant', content: reply });
+      replaceTypingWithAnswer(reply);
+    } catch (err) {
+      console.error('Siraj chat error:', err);
+      replaceTypingWithError();
+    } finally {
+      input.disabled = false;
+      sendBtn.disabled = false;
+      input.focus();
+    }
+  }
+
+  sendBtn.addEventListener('click', () => sendMessage(input.value));
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage(input.value); });
+  suggestRow.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-q]');
+    if (btn) sendMessage(btn.dataset.q);
+  });
+})();
+</script>
+</body>
+</html>
