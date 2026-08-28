@@ -114,6 +114,7 @@
   .chat-hero::before{
     content:''; position:absolute; inset:-1px; border-radius:22px; padding:1px;
     background: linear-gradient(120deg, var(--gold-dim), transparent 30%, transparent 70%, var(--emerald-light));
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor; mask-composite: exclude;
     pointer-events:none; opacity:0.6;
@@ -127,14 +128,14 @@
   .bubble.ai.typing span:nth-child(3){ animation-delay:0.4s; }
   @keyframes blink{ 0%,100%{opacity:0.25;} 50%{opacity:0.9;} }
   .bubble.ai.error{ border-color: rgba(180,70,60,0.4); background: rgba(120,40,35,0.18); color:#e8b8b0; }
-  .bubble{ max-width: 82%; padding: 12px 16px; border-radius: 14px; font-size:0.95rem; line-height:1.8; }
+  .bubble{ max-width: 82%; padding: 12px 16px; border-radius: 14px; font-size:0.95rem; line-height:1.8; word-break: break-word; }
   .bubble.user{ align-self:flex-start; background: rgba(200,161,58,0.12); border:1px solid var(--line); color: var(--gold-light); border-bottom-left-radius:4px; }
   .bubble.ai{ align-self:flex-end; background: rgba(30,90,68,0.18); border:1px solid rgba(30,90,68,0.4); color: var(--parchment); border-bottom-right-radius:4px; }
-  .bubble.ai .src{ display:block; margin-top:8px; font-size:0.72rem; color: var(--muted); font-family: var(--font-kufi); }
+  .bubble.ai .src, .bubble.ai .source-tag{ display:block; margin-top:8px; font-size:0.75rem; color: var(--gold-light); font-family: var(--font-kufi); opacity:0.85; }
   .chat-input-row{
     display:flex; align-items:center; gap:10px;
     background: var(--bg-deep); border: 1px solid var(--line); border-radius: 14px;
-    padding: 8px 8px 8px 8px; margin: 8px;
+    padding: 8px; margin: 8px;
   }
   .chat-input-row input{
     flex:1; background:transparent; border:none; outline:none; color: var(--parchment);
@@ -455,9 +456,52 @@
 </footer>
 
 <script>
-// دالة إرسال السؤال إلى Vercel API
-async function askAI(userText) {
-    if (!userText.trim()) return;
+  // عناصر DOM
+  const thread = document.getElementById('chatThread');
+  const input = document.getElementById('chatInput');
+  const sendBtn = document.getElementById('sendBtn');
+  const suggestRow = document.getElementById('chatSuggest');
+
+  // التمرير لأسفل الشات
+  function scrollToBottom() {
+    thread.scrollTop = thread.scrollHeight;
+  }
+
+  // إضافة فقاعة سؤال المستخدم
+  function addUserBubble(text) {
+    const userDiv = document.createElement('div');
+    userDiv.className = 'bubble user';
+    userDiv.textContent = text;
+    thread.appendChild(userDiv);
+    scrollToBottom();
+  }
+
+  // إضافة مؤشر كتابة الذكاء الاصطناعي
+  function addTypingBubble() {
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'bubble ai typing';
+    typingDiv.innerHTML = '<span></span><span></span><span></span>';
+    thread.appendChild(typingDiv);
+    scrollToBottom();
+    return typingDiv;
+  }
+
+  // فصل النص عن المصدر إذا تم ذكره
+  function splitAnswerAndSource(text) {
+    if (!text) return { answer: '', source: '' };
+    const srcIndex = text.indexOf('المصدر:');
+    if (srcIndex !== -1) {
+      return {
+        answer: text.substring(0, srcIndex).trim(),
+        source: text.substring(srcIndex).trim()
+      };
+    }
+    return { answer: text, source: '' };
+  }
+
+  // دالة إرسال السؤال إلى Vercel API
+  async function askAI(userText) {
+    if (!userText || !userText.trim()) return;
 
     // 1. عرض سؤال المستخدم في الشات
     addUserBubble(userText);
@@ -467,61 +511,73 @@ async function askAI(userText) {
     const typingBubble = addTypingBubble();
 
     try {
-        // 3. إرسال الطلب للـ Backend (api/chat.js)
-        const response = await fetch('/api/chat', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ prompt: userText, history: history })
-        });
+      // 3. إرسال الطلب للـ Backend (/api/chat)
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: userText })
+      });
 
-        const data = await response.json();
+      const data = await response.json();
+      
+      // إزالة مؤشر التحميل
+      if (typingBubble) typingBubble.remove();
+
+      if (response.ok && data.reply) {
+        // عرض الإجابة وقسمة المصدر تلقائياً
+        const { answer, source } = splitAnswerAndSource(data.reply);
         
-        // إزالة مؤشر التحميل
-        typingBubble.remove();
-
-        if (response.ok && data.reply) {
-            // عرض الإجابة وقسمة المصدر تلقائياً
-            const { answer, source } = splitAnswerAndSource(data.reply);
-            
-            // إضافة الإجابة للشات
-            const aiDiv = document.createElement('div');
-            aiDiv.className = 'bubble ai';
-            aiDiv.innerHTML = answer + (source ? `<br><span class="source-tag">${source}</span>` : '');
-            thread.appendChild(aiDiv);
-            scrollToBottom();
-
-            // حفظ المحادثة في الـ history
-            history.push({ role: 'user', content: userText });
-            history.push({ role: 'assistant', content: data.reply });
-        } else {
-            alert(data.error || 'حدث خطأ أثناء الحصول على الإجابة.');
+        // إضافة الإجابة للشات
+        const aiDiv = document.createElement('div');
+        aiDiv.className = 'bubble ai';
+        
+        let innerHTML = answer.replace(/\n/g, '<br>');
+        if (source) {
+          innerHTML += `<span class="source-tag">${source}</span>`;
         }
+        
+        aiDiv.innerHTML = innerHTML;
+        thread.appendChild(aiDiv);
+        scrollToBottom();
+      } else {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'bubble ai error';
+        errorDiv.textContent = data.reply || data.error || 'عذراً، حدث خطأ أثناء إحضار الإجابة.';
+        thread.appendChild(errorDiv);
+        scrollToBottom();
+      }
     } catch (error) {
-        if (typingBubble) typingBubble.remove();
-        console.error("Error:", error);
-        alert('تعذر الاتصال بالسيرفر. تأكد من تشغيل المشروع بشكل صحيح.');
+      if (typingBubble) typingBubble.remove();
+      console.error("Error:", error);
+      
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'bubble ai error';
+      errorDiv.textContent = 'تعذر الاتصال بالسيرفر. يرجى التثبت من الرفع والتجربة لاحقاً.';
+      thread.appendChild(errorDiv);
+      scrollToBottom();
     }
-}
+  }
 
-// ربط الزر والإدخال بالدالة
-sendBtn.addEventListener('click', () => askAI(input.value));
+  // ربط زر الإرسال والمفتاح Enter
+  sendBtn.addEventListener('click', () => askAI(input.value));
 
-input.addEventListener('keypress', (e) => {
+  input.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
-        askAI(input.value);
+      askAI(input.value);
     }
-});
+  });
 
-// ربط اقتراحات الأسئلة السريعة (إن وجدت)
-if (suggestRow) {
+  // ربط اقتراحات الأسئلة السريعة
+  if (suggestRow) {
     suggestRow.addEventListener('click', (e) => {
-        if (e.target.tagName === 'BUTTON') {
-            askAI(e.target.textContent);
-        }
+      if (e.target.tagName === 'BUTTON') {
+        const query = e.target.getAttribute('data-q') || e.target.textContent;
+        askAI(query);
+      }
     });
-}
+  }
 </script>
 </body>
 </html>
