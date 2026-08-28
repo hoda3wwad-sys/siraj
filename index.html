@@ -455,113 +455,73 @@
 </footer>
 
 <script>
-(function(){
-  const thread = document.getElementById('chatThread');
-  const input = document.getElementById('chatInput');
-  const sendBtn = document.getElementById('sendBtn');
-  const suggestRow = document.getElementById('chatSuggest');
+// دالة إرسال السؤال إلى Vercel API
+async function askAI(userText) {
+    if (!userText.trim()) return;
 
-  // ملاحظة: الـ System Prompt الآن موجود في السيرفر (api/chat.js) وليس هنا،
-  // عشان أي حد يقدر يشوف كود الموقع من غير ما يقدر يغيّر تعليمات المساعد أو ياخد المفتاح.
-
-  let history = [
-    { role: 'user', content: 'متى وقعت غزوة بدر الكبرى؟' },
-    { role: 'assistant', content: 'وقعت غزوة بدر في السابع عشر من رمضان، السنة الثانية للهجرة، بين المسلمين وقريش، وانتهت بنصر المسلمين رغم قلة عددهم.\nالمصدر: السيرة النبوية لابن هشام' }
-  ];
-
-  function scrollToBottom(){ thread.scrollTop = thread.scrollHeight; }
-
-  function addUserBubble(text){
-    const div = document.createElement('div');
-    div.className = 'bubble user';
-    div.textContent = text;
-    thread.appendChild(div);
-    scrollToBottom();
-  }
-
-  function addTypingBubble(){
-    const div = document.createElement('div');
-    div.className = 'bubble ai typing';
-    div.id = 'typingBubble';
-    div.innerHTML = '<span></span><span></span><span></span>';
-    thread.appendChild(div);
-    scrollToBottom();
-    return div;
-  }
-
-  function splitAnswerAndSource(text){
-    const marker = text.lastIndexOf('المصدر');
-    if (marker !== -1 && marker > text.length - 220) {
-      return { answer: text.slice(0, marker).trim(), source: text.slice(marker).trim() };
-    }
-    return { answer: text.trim(), source: null };
-  }
-
-  function replaceTypingWithAnswer(fullText){
-    const typing = document.getElementById('typingBubble');
-    const { answer, source } = splitAnswerAndSource(fullText);
-    const div = document.createElement('div');
-    div.className = 'bubble ai';
-    div.innerText = answer;
-    if (source){
-      const src = document.createElement('span');
-      src.className = 'src';
-      src.textContent = source;
-      div.appendChild(src);
-    }
-    typing.replaceWith(div);
-    scrollToBottom();
-  }
-
-  function replaceTypingWithError(){
-    const typing = document.getElementById('typingBubble');
-    const div = document.createElement('div');
-    div.className = 'bubble ai error';
-    div.textContent = 'تعذّر الوصول للمساعد الآن، حاول مرة أخرى بعد لحظات.';
-    typing.replaceWith(div);
-    scrollToBottom();
-  }
-
-  async function sendMessage(text){
-    if (!text || !text.trim()) return;
+    // 1. عرض سؤال المستخدم في الشات
+    addUserBubble(userText);
     input.value = '';
-    input.disabled = true;
-    sendBtn.disabled = true;
 
-    addUserBubble(text);
-    history.push({ role: 'user', content: text });
-    addTypingBubble();
+    // 2. إضافة مؤشر التحميل (Typing Animation)
+    const typingBubble = addTypingBubble();
 
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: history })
-      });
+        // 3. إرسال الطلب للـ Backend (api/chat.js)
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ prompt: userText, history: history })
+        });
 
-      if (!response.ok) throw new Error('API error: ' + response.status);
-      const data = await response.json();
-      const reply = data.reply || 'لم أتمكن من صياغة إجابة، حاول بسؤال آخر.';
+        const data = await response.json();
+        
+        // إزالة مؤشر التحميل
+        typingBubble.remove();
 
-      history.push({ role: 'assistant', content: reply });
-      replaceTypingWithAnswer(reply);
-    } catch (err) {
-      console.error('Siraj chat error:', err);
-      replaceTypingWithError();
-    } finally {
-      input.disabled = false;
-      sendBtn.disabled = false;
-      input.focus();
+        if (response.ok && data.reply) {
+            // عرض الإجابة وقسمة المصدر تلقائياً
+            const { answer, source } = splitAnswerAndSource(data.reply);
+            
+            // إضافة الإجابة للشات
+            const aiDiv = document.createElement('div');
+            aiDiv.className = 'bubble ai';
+            aiDiv.innerHTML = answer + (source ? `<br><span class="source-tag">${source}</span>` : '');
+            thread.appendChild(aiDiv);
+            scrollToBottom();
+
+            // حفظ المحادثة في الـ history
+            history.push({ role: 'user', content: userText });
+            history.push({ role: 'assistant', content: data.reply });
+        } else {
+            alert(data.error || 'حدث خطأ أثناء الحصول على الإجابة.');
+        }
+    } catch (error) {
+        if (typingBubble) typingBubble.remove();
+        console.error("Error:", error);
+        alert('تعذر الاتصال بالسيرفر. تأكد من تشغيل المشروع بشكل صحيح.');
     }
-  }
+}
 
-  sendBtn.addEventListener('click', () => sendMessage(input.value));
-  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage(input.value); });
-  suggestRow.addEventListener('click', (e) => {
-    const btn = e.target.closest('button[data-q]');
-    if (btn) sendMessage(btn.dataset.q);
-  });
-})();
+// ربط الزر والإدخال بالدالة
+sendBtn.addEventListener('click', () => askAI(input.value));
+
+input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        askAI(input.value);
+    }
+});
+
+// ربط اقتراحات الأسئلة السريعة (إن وجدت)
+if (suggestRow) {
+    suggestRow.addEventListener('click', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+            askAI(e.target.textContent);
+        }
+    });
+}
 </script>
 </body>
 </html>
