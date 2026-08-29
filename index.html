@@ -132,6 +132,15 @@
   .bubble.user{ align-self:flex-start; background: rgba(200,161,58,0.12); border:1px solid var(--line); color: var(--gold-light); border-bottom-left-radius:4px; }
   .bubble.ai{ align-self:flex-end; background: rgba(30,90,68,0.18); border:1px solid rgba(30,90,68,0.4); color: var(--parchment); border-bottom-right-radius:4px; }
   .bubble.ai .src, .bubble.ai .source-tag{ display:block; margin-top:8px; font-size:0.75rem; color: var(--gold-light); font-family: var(--font-kufi); opacity:0.85; }
+    .bubble-actions{ display:flex; gap:8px; margin-top:10px; }
+  .action-btn{
+    display:flex; align-items:center; gap:5px;
+    font-family: var(--font-body); font-size:0.72rem; color: var(--muted);
+    background: rgba(255,255,255,0.04); border:1px solid var(--line);
+    padding:5px 10px; border-radius:999px; cursor:pointer; transition: all .2s ease;
+  }
+  .action-btn:hover{ color: var(--gold-light); border-color: var(--gold-dim); background: rgba(200,161,58,0.08); }
+  .action-btn svg{ flex-shrink:0; }
   .chat-input-row{
     display:flex; align-items:center; gap:10px;
     background: var(--bg-deep); border: 1px solid var(--line); border-radius: 14px;
@@ -538,10 +547,42 @@
         if (source) {
           innerHTML += `<span class="source-tag">${source}</span>`;
         }
+        innerHTML += `
+          <div class="bubble-actions">
+            <button class="action-btn copy-btn" title="نسخ الإجابة">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              نسخ
+            </button>
+            <button class="action-btn share-btn" title="مشاركة على واتساب">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36a9.9 9.9 0 0 0 4.62 1.14h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2z"/></svg>
+              مشاركة
+            </button>
+          </div>`;
         
         aiDiv.innerHTML = innerHTML;
         thread.appendChild(aiDiv);
         scrollToBottom();
+
+        // ربط زر النسخ
+        const copyBtn = aiDiv.querySelector('.copy-btn');
+        if (copyBtn) {
+          const originalHTML = copyBtn.innerHTML;
+          copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(answer).then(() => {
+              copyBtn.innerHTML = 'تم النسخ ✓';
+              setTimeout(() => { copyBtn.innerHTML = originalHTML; }, 1500);
+            });
+          });
+        }
+
+        // ربط زر المشاركة على واتساب
+        const shareBtn = aiDiv.querySelector('.share-btn');
+        if (shareBtn) {
+          shareBtn.addEventListener('click', () => {
+            const shareText = encodeURIComponent(answer + (source ? '\n\n' + source : '') + '\n\nمن موقع سِراج');
+            window.open(`https://wa.me/?text=${shareText}`, '_blank');
+          });
+        }
       } else {
         const errorDiv = document.createElement('div');
         errorDiv.className = 'bubble ai error';
