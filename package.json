@@ -5,5 +5,8 @@
   "description": "موقع سِراج - سيرة النبي ﷺ بمساعدة الذكاء الاصطناعي",
   "scripts": {
     "dev": "vercel dev"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0"
   }
 }
