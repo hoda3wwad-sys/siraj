@@ -10,29 +10,50 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'مفتاح GEMINI_API_KEY غير معرف في Vercel' });
   }
 
+  // تحويل أي دخل إلى نص صافي صريح لتفادي إرسال كائنات فارغة
+  let extractedText = '';
+
+  if (typeof message === 'string') {
+    extractedText = message;
+  } else if (typeof message === 'object' && message !== null) {
+    extractedText = message.text || message.message || message.prompt || message.content || '';
+  }
+
+  if (!extractedText) {
+    extractedText = String(message || '');
+  }
+
+  extractedText = extractedText.trim();
+
+  if (!extractedText) {
+    return res.status(400).json({ error: 'يرجى كتابة سؤال صحيح.' });
+  }
+
   try {
+    const payload = {
+      contents: [
+        {
+          role: 'user',
+          parts: [{ text: extractedText }],
+        },
+      ],
+      systemInstruction: {
+        parts: [
+          {
+            text: "أنت مساعد ذكي متخصص في السيرة النبوية باسم 'سِراج'. تجيب بأمانة ودقة وتذكر المصادر الموثوقة (مثل السيرة النبوية لابن هشام، الرحيق المختوم، زاد المعاد) في نهاية الإجابة بصيغة 'المصدر: اسم الكتاب'.",
+          },
+        ],
+      },
+    };
+
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          contents: [
-            {
-              role: 'user',
-              parts: [{ text: message }],
-            },
-          ],
-          systemInstruction: {
-            parts: [
-              {
-                text: "أنت مساعد ذكي متخصص في السيرة النبوية باسم 'سِراج'. تجيب بأمانة ودقة وتذكر المصادر الموثوقة (مثل السيرة النبوية لابن هشام، الرحيق المختوم، زاد المعاد) في نهاية الإجابة بصيغة 'المصدر: اسم الكتاب'.",
-              },
-            ],
-          },
-        }),
+        body: JSON.stringify(payload),
       }
     );
 
