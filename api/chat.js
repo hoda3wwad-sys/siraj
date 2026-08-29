@@ -3,8 +3,8 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const { message } = req.body;
-  const apiKey = process.env.GEMINI_API_KEY;
+    const { message, prompt } = req.body;
+  const userInput = message !== undefined ? message : prompt;
 
   if (!apiKey) {
     return res.status(500).json({ error: 'مفتاح GEMINI_API_KEY غير معرف في Vercel' });
@@ -12,16 +12,15 @@ export default async function handler(req, res) {
 
   // تحويل أي دخل إلى نص صافي صريح لتفادي إرسال كائنات فارغة
   let extractedText = '';
-
-  if (typeof message === 'string') {
-    extractedText = message;
-  } else if (typeof message === 'object' && message !== null) {
-    extractedText = message.text || message.message || message.prompt || message.content || '';
+  if (typeof userInput === 'string') {
+    extractedText = userInput;
+  } else if (typeof userInput === 'object' && userInput !== null) {
+    extractedText = userInput.text || userInput.message || userInput.prompt || userInput.content || '';
   }
-
   if (!extractedText) {
-    extractedText = String(message || '');
+    extractedText = String(userInput || '');
   }
+  
 
   extractedText = extractedText.trim();
 
