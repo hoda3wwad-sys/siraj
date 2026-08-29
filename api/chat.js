@@ -5,6 +5,7 @@ export default async function handler(req, res) {
 
     const { message, prompt } = req.body;
   const userInput = message !== undefined ? message : prompt;
+  const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
     return res.status(500).json({ error: 'مفتاح GEMINI_API_KEY غير معرف في Vercel' });
