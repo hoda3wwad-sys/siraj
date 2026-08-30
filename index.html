@@ -5,45 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>طيبة — سيرة خير الأنام ﷺ</title>
   
+  <!-- الخطوط -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Reem+Kufi:wght@400;500;700&display=swap" rel="stylesheet">
   
   <style>
-    /* ===== المتغيرات الأساسية (الوضع الفاتح والداكن) ===== */
+    /* ===== المتغيرات البصرية المستوحاة من طابع المدينة المنورة الأصلي ===== */
     :root {
-      --bg-main: #fdfbf7;
-      --bg-card: #ffffff;
-      --bg-surface: #f4efe6;
-      --text-main: #2b2d42;
-      --text-muted: #6c757d;
-      --primary-olive: #1b4332;
-      --primary-olive-light: #2d6a4f;
-      --accent-gold: #c5a059;
-      --accent-gold-hover: #b08b43;
-      --border-color: #e5decf;
-      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
-      --radius: 12px;
-      --transition: all 0.3s ease;
+      --bg-dark: #050b08;
+      --bg-card: #0a1712;
+      --bg-card-header: #0e2019;
+      --border-gold: #c5a059;
+      --border-gold-subtle: rgba(197, 160, 89, 0.25);
+      --text-gold: #c5a059;
+      --text-gold-light: #e5c889;
+      --text-body: #d1d5db;
+      --text-muted: #8b978f;
+      --radius: 16px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    [data-theme="dark"] {
-      --bg-main: #0f172a;
-      --bg-card: #1e293b;
-      --bg-surface: #1a2332;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --primary-olive: #2d6a4f;
-      --primary-olive-light: #40916c;
-      --accent-gold: #d4af37;
-      --accent-gold-hover: #e5c158;
-      --border-color: #334155;
-      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-    }
-
-    /* ===== التنسيقات العامة ===== */
+    /* ===== التنسيقات العامة والزخرفة الخلفية ===== */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -52,11 +35,14 @@
 
     body {
       font-family: 'IBM Plex Sans Arabic', sans-serif;
-      background-color: var(--bg-main);
-      color: var(--text-main);
+      background-color: var(--bg-dark);
+      color: var(--text-body);
       line-height: 1.8;
-      transition: var(--transition);
       overflow-x: hidden;
+      /* خلفية الزخرفة النجمية الفخمة */
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(13, 34, 26, 0.6) 0%, transparent 80%),
+        repeating-linear-gradient(45deg, rgba(197, 160, 89, 0.02) 0px, rgba(197, 160, 89, 0.02) 2px, transparent 2px, transparent 20px);
     }
 
     h1, h2, h3, .font-kufi {
@@ -72,250 +58,228 @@
       text-decoration: none;
     }
 
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
     /* ===== الهيدر والشريط العلوي ===== */
     header {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: var(--bg-card);
-      border-bottom: 1px solid var(--border-color);
-      box-shadow: var(--shadow-sm);
-      backdrop-filter: blur(8px);
+      background: rgba(5, 11, 8, 0.92);
+      border-bottom: 1px solid var(--border-gold-subtle);
+      backdrop-filter: blur(10px);
     }
 
     .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 1.2rem 1.5rem;
     }
 
     .logo {
       font-size: 1.8rem;
       font-weight: 700;
-      color: var(--primary-olive);
+      color: var(--text-gold);
       display: flex;
       align-items: center;
       gap: 0.5rem;
-    }
-
-    .logo span {
-      color: var(--accent-gold);
     }
 
     .nav-links {
       display: flex;
-      gap: 1.5rem;
-      align-items: center;
+      gap: 2rem;
       list-style: none;
     }
 
+    .nav-links a {
+      color: var(--text-body);
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+
     .nav-links a:hover {
-      color: var(--accent-gold);
-      transition: var(--transition);
+      color: var(--text-gold);
     }
 
-    .theme-toggle {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      padding: 0.5rem 1rem;
-      border-radius: var(--radius);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: inherit;
-      transition: var(--transition);
-    }
-
-    .theme-toggle:hover {
-      background: var(--border-color);
-    }
-
-    /* ===== قسم البطل (Hero Section) ===== */
-    .hero {
-      text-align: center;
-      padding: 4rem 1.5rem 3rem;
-      background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-main) 100%);
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .hero h1 {
-      font-size: 3rem;
-      color: var(--primary-olive);
-      margin-bottom: 1rem;
-    }
-
-    .hero p {
-      font-size: 1.25rem;
-      color: var(--text-muted);
-      max-width: 700px;
-      margin: 0 auto 2rem;
-    }
-
-    /* ===== الخط الزمني (Timeline) ===== */
+    /* ===== عناوين الأقسام والفاصل الذهبي الزخرفي ===== */
     .section-head {
       text-align: center;
-      margin: 3rem 0 2rem;
+      margin: 4rem 0 2.5rem;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      padding: 0.3rem 1.2rem;
+      border: 1px solid var(--border-gold-subtle);
+      border-radius: 50px;
+      color: var(--text-gold);
+      font-size: 0.85rem;
+      margin-bottom: 0.8rem;
+      background: rgba(197, 160, 89, 0.05);
     }
 
     .section-head h2 {
       font-size: 2.2rem;
-      color: var(--primary-olive);
+      color: var(--text-gold);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.5px;
     }
 
-    .timeline-container {
-      max-width: 1000px;
+    .section-head p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 600px;
       margin: 0 auto;
-      padding: 2rem 1.5rem;
-      position: relative;
     }
 
-    .timeline-container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 50%;
-      width: 4px;
-      background: var(--accent-gold);
-      transform: translateX(50%);
+    .golden-divider {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      margin: 1rem 0;
     }
 
-    .t-item {
-      margin-bottom: 2.5rem;
-      position: relative;
-      width: 50%;
-      padding: 0 2rem;
-      cursor: pointer;
+    .golden-divider span {
+      width: 8px;
+      height: 8px;
+      background-color: var(--text-gold);
+      transform: rotate(45deg);
+      opacity: 0.8;
     }
 
-    .t-item:nth-child(odd) {
-      right: 0;
-      text-align: left;
+    /* ===== بطاقات الشبكة (Grid Cards) ===== */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
     }
 
-    .t-item:nth-child(even) {
-      right: 50%;
-      text-align: right;
-    }
-
-    .t-content {
+    .feature-card {
       background: var(--bg-card);
-      padding: 1.5rem;
+      border: 1px solid var(--border-gold-subtle);
       border-radius: var(--radius);
-      border: 1px solid var(--border-color);
-      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--border-gold);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(197, 160, 89, 0.15);
+    }
+
+    .card-icon-frame {
+      height: 180px;
+      background: radial-gradient(circle at center, rgba(14, 32, 25, 0.8) 0%, var(--bg-card) 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid var(--border-gold-subtle);
+      position: relative;
+    }
+
+    /* الأشكال الهندسية الذهبية داخل البطاقات */
+    .svg-icon {
+      width: 70px;
+      height: 70px;
+      stroke: var(--text-gold);
+      stroke-width: 1.5;
+      fill: none;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .card-body h3 {
+      color: var(--text-gold);
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-body p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    /* ===== قسم المصادر والمراجع (List Style) ===== */
+    .references-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .ref-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold-subtle);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       transition: var(--transition);
     }
 
-    .t-item:hover .t-content {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--accent-gold);
+    .ref-item:hover {
+      border-color: var(--border-gold);
+      background: var(--bg-card-header);
     }
 
-    .t-dot {
-      position: absolute;
-      top: 1.5rem;
-      right: -10px;
-      width: 20px;
-      height: 20px;
-      background: var(--primary-olive);
-      border: 4px solid var(--accent-gold);
-      border-radius: 50%;
-      z-index: 2;
+    .ref-info h3 {
+      color: var(--text-gold);
+      font-size: 1.2rem;
     }
 
-    .t-item:nth-child(even) .t-dot {
-      right: auto;
-      left: -10px;
-    }
-
-    .t-date {
-      color: var(--accent-gold);
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      display: block;
-    }
-
-    /* ===== النافذة المنبثقة للغزوات (Modal) ===== */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      padding: 1.5rem;
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .modal-content {
-      background: var(--bg-card);
-      max-width: 600px;
-      width: 100%;
-      padding: 2rem;
-      border-radius: var(--radius);
-      border: 1px solid var(--accent-gold);
-      box-shadow: var(--shadow-md);
-      position: relative;
-      animation: modalFade 0.3s ease;
-    }
-
-    @keyframes modalFade {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .close-modal {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
+    .ref-info p {
       color: var(--text-muted);
-      cursor: pointer;
+      font-size: 0.85rem;
     }
 
-    /* ===== المساعد الذكي (AI Chat Section) ===== */
-    .chat-section {
-      max-width: 800px;
-      margin: 4rem auto;
-      padding: 0 1.5rem;
+    .ref-badge {
+      border: 1px solid var(--border-gold-subtle);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      color: var(--text-gold-light);
+      font-size: 0.75rem;
     }
 
+    /* ===== المساعد الذكي (AI Chat Interface) ===== */
     .chat-card {
       background: var(--bg-card);
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--border-gold-subtle);
       border-radius: var(--radius);
-      box-shadow: var(--shadow-md);
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      height: 550px;
+      max-width: 850px;
+      margin: 0 auto;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
     }
 
     .chat-header {
-      background: var(--primary-olive);
-      color: #fff;
-      padding: 1rem 1.5rem;
+      background: var(--bg-card-header);
+      padding: 1.2rem 1.5rem;
+      border-bottom: 1px solid var(--border-gold-subtle);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
+    .chat-header h3 {
+      color: var(--text-gold);
+      font-size: 1.1rem;
+    }
+
     .chat-thread {
-      flex: 1;
+      height: 400px;
       padding: 1.5rem;
       overflow-y: auto;
       display: flex;
@@ -325,207 +289,379 @@
 
     .msg {
       max-width: 80%;
-      padding: 1rem;
-      border-radius: var(--radius);
-      line-height: 1.6;
-      position: relative;
+      padding: 1rem 1.2rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
     }
 
     .msg-ai {
-      background: var(--bg-surface);
+      background: var(--bg-card-header);
+      border: 1px solid var(--border-gold-subtle);
+      color: var(--text-body);
       align-self: flex-start;
       border-top-right-radius: 0;
-      border: 1px solid var(--border-color);
     }
 
     .msg-user {
-      background: var(--primary-olive);
-      color: #fff;
+      background: var(--border-gold);
+      color: #050b08;
+      font-weight: 600;
       align-self: flex-end;
       border-top-left-radius: 0;
     }
 
     .chat-controls {
       padding: 1rem;
-      border-top: 1px solid var(--border-color);
+      background: var(--bg-dark);
+      border-top: 1px solid var(--border-gold-subtle);
       display: flex;
-      gap: 0.5rem;
-      background: var(--bg-card);
+      gap: 0.8rem;
     }
 
     .chat-controls input {
       flex: 1;
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold-subtle);
+      border-radius: 8px;
       padding: 0.8rem 1rem;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius);
-      background: var(--bg-main);
-      color: var(--text-main);
-      outline: none;
+      color: #fff;
       font-family: inherit;
+      outline: none;
+    }
+
+    .chat-controls input:focus {
+      border-color: var(--border-gold);
     }
 
     .chat-controls button {
-      background: var(--accent-gold);
-      color: #fff;
+      background: var(--text-gold);
+      color: #050b08;
       border: none;
-      padding: 0.8rem 1.5rem;
-      border-radius: var(--radius);
+      padding: 0 1.5rem;
+      border-radius: 8px;
+      font-weight: 700;
       cursor: pointer;
-      font-weight: 600;
       transition: var(--transition);
     }
 
     .chat-controls button:hover {
-      background: var(--accent-gold-hover);
+      background: var(--text-gold-light);
     }
 
-    /* ===== الفوتر ===== */
+    /* ===== النافذة المنبثقة (Modal) ===== */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
+
+    .modal.active { display: flex; }
+
+    .modal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius);
+      max-width: 550px;
+      width: 100%;
+      padding: 2.5rem 2rem 2rem;
+      position: relative;
+      text-align: center;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
     footer {
       text-align: center;
-      padding: 2rem;
-      border-top: 1px solid var(--border-color);
-      background: var(--bg-card);
+      padding: 2.5rem;
+      margin-top: 5rem;
+      border-top: 1px solid var(--border-gold-subtle);
       color: var(--text-muted);
-      margin-top: 4rem;
-    }
-
-    /* ===== التجاوب (Responsive) ===== */
-    @media (max-width: 768px) {
-      .timeline-container::before { right: 20px; }
-      .t-item { width: 100%; right: 0 !important; text-align: right !important; padding-right: 3rem; padding-left: 0; }
-      .t-dot { right: 10px !important; left: auto !important; }
+      font-size: 0.9rem;
     }
   </style>
 </head>
-<body data-theme="light">
+<body>
 
+  <!-- الشريط العلوي -->
   <header>
-    <div class="nav-container">
+    <div class="container nav-container">
       <div class="logo">
-        <span>ﷺ</span> طيبة
+        <span style="color: var(--text-gold);">ﷺ</span> طيبة
       </div>
       <ul class="nav-links">
-        <li><a href="#hero">الرئيسية</a></li>
-        <li><a href="#timeline">السيرة والنزول</a></li>
-        <li><a href="#ai-assistant">المساعد الذكي</a></li>
+        <li><a href="#timeline">محطات السيرة</a></li>
+        <li><a href="#maps">خرائط وزخارف</a></li>
+        <li><a href="#references">المصادر والمراجع</a></li>
+        <li><a href="#assistant">المساعد الذكي</a></li>
       </ul>
-      <button class="theme-toggle" id="themeBtn">
-        <span id="themeIcon">🌙</span> <span id="themeText">الوضع الداكن</span>
-      </button>
     </div>
   </header>
 
-  <section class="hero" id="hero">
-    <h1 class="font-ruqaa">طيبة — سيرة خير الأنام ﷺ</h1>
-    <p>منصة تفاعلية توثيقية تعكس أريج السيرة النبوية المطهرة بأسلوب عصري، وتقدم إجابات موثوقة عبر المساعد الذكي.</p>
-  </section>
+  <main class="container">
 
-  <section id="timeline">
-    <div class="section-head">
-      <h2>أبرز محطات السيرة النبوية</h2>
-      <p style="color: var(--text-muted);">انقر على أي حدث لمعرفة تفاصيله والدروس المستفادة</p>
-    </div>
-
-    <div class="timeline-container">
-      <div class="t-item" data-title="غزوة بدر الكبرى" data-date="2 هـ" data-desc="أول معركة فاصلة في الإسلام بين المسلمين وقريش، ونصر الله فيها المؤمنين رغم قلة عددهم.">
-        <div class="t-dot"></div>
-        <div class="t-content">
-          <span class="t-date">2 هجرية</span>
-          <h3>غزوة بدر الكبرى</h3>
-          <p>يوم الفرقان الأول والنصر الأعظم للمسلمين.</p>
+    <!-- قسم محطات السيرة النبوية -->
+    <section id="timeline">
+      <div class="section-head">
+        <h2>محطات السيرة النبوية</h2>
+        <p>من المولد إلى حجة الوداع، تعرف على مراحل حياة النبي ﷺ عبر المساعد الذكي أو الجدول الزمني.</p>
+        <div class="golden-divider">
+          <span></span><span></span><span></span><span></span><span></span>
         </div>
       </div>
 
-      <div class="t-item" data-title="غزوة أُحد" data-date="3 هـ" data-desc="احتدام القتال عند جبل أحد، ودرس هام للمسلمين في أهمية الالتزام بطاعة أوامر النبي ﷺ.">
-        <div class="t-dot"></div>
-        <div class="t-content">
-          <span class="t-date">3 هجرية</span>
-          <h3>غزوة أُحد</h3>
-          <p>دروس وعبر في الشورى والإنضباط.</p>
+      <div class="grid-3">
+        <!-- المولد الشريف -->
+        <div class="feature-card" data-title="المولد الشريف" data-desc="ولد النبي ﷺ في عام الفيل بمكة المكرمة، ونشأ يتيماً محفوفاً برعاية الله تعالى.">
+          <div class="card-icon-frame">
+            <svg class="svg-icon" viewBox="0 0 100 100">
+              <circle cx="50" cy="35" r="12" />
+              <path d="M 25 70 Q 50 50 75 70" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3>المولد الشريف</h3>
+            <p>عام الفيل، بمكة المكرمة</p>
+          </div>
+        </div>
+
+        <!-- البعثة النبوية -->
+        <div class="feature-card" data-title="البعثة النبوية" data-desc="نزول الوحي جبريل عليه السلام على النبي ﷺ في غار حراء بأول آيات القرآن الكريم: (اقْرَأْ).">
+          <div class="card-icon-frame">
+            <svg class="svg-icon" viewBox="0 0 100 100">
+              <polygon points="50,15 63,40 90,40 68,57 76,85 50,68 24,85 32,57 10,40 37,40" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3>البعثة النبوية</h3>
+            <p>نزول الوحي في غار حراء</p>
+          </div>
+        </div>
+
+        <!-- الدعوة في مكة -->
+        <div class="feature-card" data-title="الدعوة في مكة" data-desc="ثلاث عشرة سنة من الصبر والبلاغ والدعوة إلى توحيد الله تعالى في مكة المكرمة.">
+          <div class="card-icon-frame">
+            <svg class="svg-icon" viewBox="0 0 100 100">
+              <path d="M 20 60 Q 50 30 80 60" />
+              <circle cx="50" cy="55" r="3" fill="#c5a059" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3>الدعوة في مكة</h3>
+            <p>ثلاث عشرة سنة من الصبر والبلاغ</p>
+          </div>
+        </div>
+
+        <!-- المدينة المنورة -->
+        <div class="feature-card" data-title="المدينة المنورة" data-desc="الهجرة النبوية المباركة، وبناء المسجد النبوي الشريف وتأسيس المجتمع الإسلامي الأول.">
+          <div class="card-icon-frame">
+            <svg class="svg-icon" viewBox="0 0 100 100">
+              <polygon points="50,20 80,75 20,75" />
+              <rect x="42" y="50" width="16" height="25" fill="none" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3>المدينة المنورة</h3>
+            <p>بناء المسجد والمجتمع الجديد</p>
+          </div>
+        </div>
+
+        <!-- الغزوات -->
+        <div class="feature-card" data-title="الغزوات المباركة" data-desc="معارك ودفاع عن الحق والعدل، من بدر الكبرى إلى فتح مكة وتبوك.">
+          <div class="card-icon-frame">
+            <svg class="svg-icon" viewBox="0 0 100 100">
+              <path d="M 15 60 L 35 45 L 50 60 L 70 40 L 85 60" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3>الغزوات</h3>
+            <p>من بدر إلى فتح مكة</p>
+          </div>
+        </div>
+
+        <!-- حجة الوداع -->
+        <div class="feature-card" data-title="حجة الوداع" data-desc="الخطبة الجامعة التي ألقاها النبي ﷺ في موسم الحج، مبيناً فيها قوام الحقوق وإتمام الدين.">
+          <div class="card-icon-frame">
+            <svg class="svg-icon" viewBox="0 0 100 100">
+              <polygon points="50,10 63,38 92,38 68,55 77,83 50,65 23,83 32,55 8,38 37,38" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3>حجة الوداع</h3>
+            <p>الخطبة الجامعة وإتمام الدين</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- قسم خرائط وزخارف تاريخية -->
+    <section id="maps">
+      <div class="section-head">
+        <span class="badge-pill">معرض توضيحي</span>
+        <h2>خرائط وزخارف تاريخية</h2>
+        <p>صور توضيحية وخرائط ورسوم زخرفية — من غير أي تصوير للنبي ﷺ أو الصحابة الكرام، التزاماً بالأدب الشرعي.</p>
+        <div class="golden-divider">
+          <span></span><span></span><span></span><span></span><span></span>
         </div>
       </div>
 
-      <div class="t-item" data-title="صلح الحديبية" data-date="6 هـ" data-desc="معاهدة سلام بين النبي ﷺ وقريش تميزت بالحكمة والدبلوماسية الإسلامية وفتحت آفاقاً واسعة لنشر الدعوة.">
-        <div class="t-dot"></div>
-        <div class="t-content">
-          <span class="t-date">6 هجرية</span>
-          <h3>صلح الحديبية</h3>
-          <p>الفتح المبين والهدنة التكتيكية.</p>
+      <div class="grid-3">
+        <div class="feature-card">
+          <div class="card-icon-frame">
+            <svg class="svg-icon" viewBox="0 0 100 100">
+              <path d="M 25 70 Q 50 35 75 70 L 25 70 Z" />
+              <rect x="47" y="55" width="6" height="15" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3>المسجد النبوي</h3>
+            <p>رسم تخطيطي لمعالم المسجد الأولى</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon-frame">
+            <svg class="svg-icon" viewBox="0 0 100 100">
+              <polygon points="50,15 61,35 85,35 66,50 73,73 50,58 27,73 34,50 15,35 39,35" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3>زخرفة هندسية إسلامية</h3>
+            <p>نجمة ثمانية بأسلوب المشرقية التقليدي</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon-frame">
+            <svg class="svg-icon" viewBox="0 0 100 100">
+              <path d="M 20 65 Q 35 40 50 65 Q 65 45 80 65 Q 90 55 95 65" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3>خريطة الجزيرة العربية</h3>
+            <p>مسارات الدعوة والهجرة بين مكة والمدينة</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- قسم المصادر والمراجع -->
+    <section id="references">
+      <div class="section-head">
+        <h2>المصادر والمراجع</h2>
+        <p>كل معلومة تقدمها طيبة مبنية على مصدر موثّق، تجدونه إلى جانب الإجابة دائماً.</p>
+        <div class="golden-divider">
+          <span></span><span></span><span></span><span></span><span></span>
         </div>
       </div>
 
-      <div class="t-item" data-title="فتح مكة" data-date="8 هـ" data-desc="دخول النبي ﷺ مكة فاتحاً ومنتصراً بعفو ورحمة، وتطهير الكعبة المشرفة من الأصنام.">
-        <div class="t-dot"></div>
-        <div class="t-content">
-          <span class="t-date">8 هجرية</span>
-          <h3>فتح مكة الأعظم</h3>
-          <p>جاء الحق ووزهق الباطل.</p>
+      <div class="references-list">
+        <div class="ref-item">
+          <div class="ref-info">
+            <h3>السيرة النبوية</h3>
+            <p>ابن هشام</p>
+          </div>
+          <span class="ref-badge">مرجع أساسي</span>
+        </div>
+
+        <div class="ref-item">
+          <div class="ref-info">
+            <h3>زاد المعاد في هدي خير العباد</h3>
+            <p>ابن قيم الجوزية</p>
+          </div>
+          <span class="ref-badge">مرجع أساسي</span>
+        </div>
+
+        <div class="ref-item">
+          <div class="ref-info">
+            <h3>الرحيق المختوم</h3>
+            <p>صفي الرحمن المباركفوري</p>
+          </div>
+          <span class="ref-badge">مرجع معتمد</span>
+        </div>
+
+        <div class="ref-item">
+          <div class="ref-info">
+            <h3>تاريخ الطبري</h3>
+            <p>محمد بن جرير الطبري</p>
+          </div>
+          <span class="ref-badge">مرجع تاريخي</span>
+        </div>
+
+        <div class="ref-item">
+          <div class="ref-info">
+            <h3>صحيح البخاري ومسلم</h3>
+            <p>أحاديث السيرة الصحيحة</p>
+          </div>
+          <span class="ref-badge">مصدر حديثي</span>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="modal" id="eventModal">
+    <!-- قسم المساعد الذكي -->
+    <section id="assistant" style="margin-top: 5rem;">
+      <div class="section-head">
+        <h2>اسأل المساعد الذكي للسيرة</h2>
+        <p>إجابات دقيقة وموثقة من المصادر التاريخية المعتمدة</p>
+      </div>
+
+      <div class="chat-card">
+        <div class="chat-header">
+          <h3>المجيب التفاعلي لعلوم السيرة</h3>
+          <span style="color: var(--text-muted); font-size: 0.8rem;">متصل الآن</span>
+        </div>
+        <div class="chat-thread" id="chatThread">
+          <div class="msg msg-ai">
+            السلام عليكم ورحمة الله وبركاته. مرحباً بك في منصة طيبة، كيف يمكنني مساعدتك اليوم في الاستفسار عن السيرة النبوية المطهرة؟
+          </div>
+        </div>
+        <div class="chat-controls">
+          <input type="text" id="userInput" placeholder="اكتب سؤالك هنا (مثال: متى بني المسجد النبوي؟)...">
+          <button id="sendBtn">إرسال</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- النافذة المنبثقة للتفاصيل -->
+  <div class="modal" id="infoModal">
     <div class="modal-content">
       <button class="close-modal" id="closeModal">&times;</button>
-      <span class="t-date" id="modalDate"></span>
-      <h2 id="modalTitle" style="color: var(--primary-olive); margin-bottom: 1rem;"></h2>
-      <p id="modalDesc" style="color: var(--text-main); line-height: 1.8;"></p>
+      <h2 id="modalTitle" style="color: var(--text-gold); margin-bottom: 1rem;"></h2>
+      <p id="modalDesc" style="color: var(--text-body); line-height: 1.8;"></p>
     </div>
   </div>
-
-  <section class="chat-section" id="ai-assistant">
-    <div class="section-head">
-      <h2>اسأل المساعد الذكي للسيرة</h2>
-    </div>
-    <div class="chat-card">
-      <div class="chat-header">
-        <span>المجيب التفاعلي لعلوم السيرة</span>
-        <button id="clearChat" style="background: none; border: none; color: #fff; cursor: pointer; font-size: 0.9rem;">مسح السجل 🗑️</button>
-      </div>
-      <div class="chat-thread" id="chatThread">
-        <div class="msg msg-ai">
-          السلام عليكم ورحمة الله وبركاته. مرحباً بك في منصة طيبة، كيف يمكنني مساعدتك اليوم في الاستفسار عن السيرة النبوية؟
-        </div>
-      </div>
-      <div class="chat-controls">
-        <input type="text" id="userInput" placeholder="اكتب سؤالك هنا (مثال: متى كانت غزوة خيبر؟)...">
-        <button id="sendBtn">إرسال</button>
-      </div>
-    </div>
-  </section>
 
   <footer>
     <p>© طيبة — جميع الحقوق محفوظة لخدمة السيرة النبوية المطهرة.</p>
   </footer>
 
   <script>
-    // 1. تبديل الوضع الداكن (Dark Mode)
-    const themeBtn = document.getElementById('themeBtn');
-    const themeIcon = document.getElementById('themeIcon');
-    const themeText = document.getElementById('themeText');
-
-    themeBtn.addEventListener('click', () => {
-      const currentTheme = document.body.getAttribute('data-theme');
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      document.body.setAttribute('data-theme', newTheme);
-      
-      themeIcon.textContent = newTheme === 'light' ? '🌙' : '☀️';
-      themeText.textContent = newTheme === 'light' ? 'الوضع الداكن' : 'الوضع الفاتح';
-    });
-
-    // 2. النافذة المنبثقة للخط الزمني (Timeline Modal)
-    const modal = document.getElementById('eventModal');
+    // النافذة المنبثقة للبطاقات
+    const modal = document.getElementById('infoModal');
     const closeModal = document.getElementById('closeModal');
     const modalTitle = document.getElementById('modalTitle');
-    const modalDate = document.getElementById('modalDate');
     const modalDesc = document.getElementById('modalDesc');
 
-    document.querySelectorAll('.t-item').forEach(item => {
-      item.addEventListener('click', () => {
-        modalTitle.textContent = item.getAttribute('data-title');
-        modalDate.textContent = item.getAttribute('data-date');
-        modalDesc.textContent = item.getAttribute('data-desc');
+    document.querySelectorAll('.feature-card[data-title]').forEach(card => {
+      card.addEventListener('click', () => {
+        modalTitle.textContent = card.getAttribute('data-title');
+        modalDesc.textContent = card.getAttribute('data-desc');
         modal.classList.add('active');
       });
     });
@@ -535,44 +671,35 @@
       if (e.target === modal) modal.classList.remove('active');
     });
 
-    // 3. المساعد الذكي (Chat Interface)
+    // سكريبت المحادثة الذكية
     const sendBtn = document.getElementById('sendBtn');
     const userInput = document.getElementById('userInput');
     const chatThread = document.getElementById('chatThread');
-    const clearChat = document.getElementById('clearChat');
 
-    function addMessage(text, sender) {
-      const msgDiv = document.createElement('div');
-      msgDiv.className = `msg msg-${sender}`;
-      msgDiv.textContent = text;
-      chatThread.appendChild(msgDiv);
-      chatThread.scrollTop = chatThread.scrollHeight;
-    }
-
-    function handleSend() {
+    function sendMsg() {
       const text = userInput.value.trim();
       if (!text) return;
 
-      addMessage(text, 'user');
-      userInput.value = '';
+      const userMsg = document.createElement('div');
+      userMsg.className = 'msg msg-user';
+      userMsg.textContent = text;
+      chatThread.appendChild(userMsg);
 
-      // رد محاكاة ترحيبي/توضيحي
+      userInput.value = '';
+      chatThread.scrollTop = chatThread.scrollHeight;
+
       setTimeout(() => {
-        addMessage('جاري البحث والتحقق من المصادر التاريخية لإجابتك على أفضل وجه...', 'ai');
+        const aiMsg = document.createElement('div');
+        aiMsg.className = 'msg msg-ai';
+        aiMsg.textContent = 'جاري التحقق من المصادر التاريخية وتوثيق الإجابة...';
+        chatThread.appendChild(aiMsg);
+        chatThread.scrollTop = chatThread.scrollHeight;
       }, 600);
     }
 
-    sendBtn.addEventListener('click', handleSend);
+    sendBtn.addEventListener('click', sendMsg);
     userInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') handleSend();
-    });
-
-    clearChat.addEventListener('click', () => {
-      chatThread.innerHTML = `
-        <div class="msg msg-ai">
-          السلام عليكم ورحمة الله وبركاته. مرحباً بك في منصة طيبة، كيف يمكنني مساعدتك اليوم في الاستفسار عن السيرة النبوية؟
-        </div>
-      `;
+      if (e.key === 'Enter') sendMsg();
     });
   </script>
 </body>
