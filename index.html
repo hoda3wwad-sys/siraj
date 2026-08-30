@@ -249,6 +249,18 @@
     background: radial-gradient(circle at 50% 20%, rgba(63,174,114,0.16), transparent 70%);
     border-bottom: 1px solid var(--line);
     position: relative;
+    overflow: hidden;
+  }
+  .g-art img{
+    width:100%; height:100%; object-fit: cover;
+    filter: brightness(0.55) saturate(0.85) contrast(1.05) sepia(0.12);
+    transition: filter .4s ease, transform .4s ease;
+  }
+  .g-card:hover .g-art img{ filter: brightness(0.7) saturate(0.95) contrast(1.05) sepia(0.12); transform: scale(1.04); }
+  .g-art::after{
+    content:''; position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(5,15,11,0.15), rgba(5,15,11,0.55));
+    pointer-events:none;
   }
   .g-art::before{
     content:''; position:absolute; top:14px; left:50%; transform: translateX(-50%);
@@ -483,15 +495,15 @@
   </div>
   <div class="gallery-grid">
     <div class="g-card"><div class="g-art">
-      <svg viewBox="0 0 120 100"><rect x="10" y="60" width="100" height="4" fill="#1e5a44" opacity="0.6"/><path d="M20 60 Q30 20 45 60" fill="none" stroke="#c8a13a" stroke-width="1"/><path d="M55 60 Q70 10 85 60" fill="none" stroke="#c8a13a" stroke-width="1"/><path d="M95 60 Q100 40 105 60" fill="none" stroke="#c8a13a" stroke-width="1"/></svg>
+      <img src="images/map-arabia.jpg" alt="خريطة الجزيرة العربية" loading="lazy">
     </div><div class="g-info"><h4>خريطة الجزيرة العربية</h4><p>مسارات الدعوة والهجرة بين مكة والمدينة</p></div></div>
 
     <div class="g-card"><div class="g-art">
-      <svg viewBox="0 0 100 100"><g fill="none" stroke="#e9cf82" stroke-width="0.8"><path d="M50 10 L61 33 L86 33 L66 49 L74 74 L50 59 L26 74 L34 49 L14 33 L39 33 Z"/><circle cx="50" cy="50" r="38"/></g></svg>
+      <img src="images/islamic-pattern.jpg" alt="زخرفة هندسية إسلامية" loading="lazy">
     </div><div class="g-info"><h4>زخرفة هندسية إسلامية</h4><p>نجمة ثمانية بأسلوب المشربية التقليدي</p></div></div>
 
     <div class="g-card"><div class="g-art">
-      <svg viewBox="0 0 100 100"><path d="M25 75 L25 40 Q50 15 75 40 L75 75" fill="none" stroke="#c8a13a" stroke-width="1.2"/><line x1="15" y1="75" x2="85" y2="75" stroke="#c8a13a" stroke-width="1.2"/><rect x="47" y="55" width="6" height="20" fill="#c8a13a" opacity="0.4"/></svg>
+      <img src="images/masjid-nabawi.jpg" alt="المسجد النبوي" loading="lazy">
     </div><div class="g-info"><h4>المسجد النبوي</h4><p>رسم تخطيطي لمعالم المسجد الأولى</p></div></div>
   </div>
 </section>
