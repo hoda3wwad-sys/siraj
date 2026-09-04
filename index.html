@@ -4,6 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>طيبة — سيرة خير الأنام ﷺ</title>
+<meta name="description" content="طيبة: مساعد ذكاء اصطناعي يروي لك السيرة النبوية بدقة وأمانة، ويستند في كل إجابة إلى مصادرها الموثوقة — من المولد إلى حجة الوداع.">
+
+<!-- Open Graph (فيسبوك / واتساب / لينكدإن) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="طيبة — سيرة خير الأنام ﷺ">
+<meta property="og:description" content="مساعد ذكاء اصطناعي يروي لك السيرة النبوية بدقة وأمانة، ويستند في كل إجابة إلى مصادرها الموثوقة.">
+<meta property="og:url" content="https://tayba-awwad.vercel.app/">
+<meta property="og:image" content="https://tayba-awwad.vercel.app/og-image.png">
+<meta property="og:locale" content="ar_AR">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="طيبة — سيرة خير الأنام ﷺ">
+<meta name="twitter:description" content="مساعد ذكاء اصطناعي يروي لك السيرة النبوية بدقة وأمانة، من المولد إلى حجة الوداع.">
+<meta name="twitter:image" content="https://tayba-awwad.vercel.app/og-image.png">
+
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%23070c14'/%3E%3Cpath d='M20 4L20 14' stroke='%23c8a13a' stroke-width='1.5'/%3E%3Cpath d='M13 14Q20 8 27 14L25 30Q20 34 15 30Z' fill='%23c8a13a' fill-opacity='0.18' stroke='%23e9cf82' stroke-width='1.2'/%3E%3Ccircle cx='20' cy='20' r='3.5' fill='%23e9cf82'/%3E%3Cpath d='M15 32L25 32L23 36L17 36Z' fill='%237d692a'/%3E%3C/svg%3E">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%23070c14'/%3E%3Cpath d='M20 4L20 14' stroke='%23c8a13a' stroke-width='1.5'/%3E%3Cpath d='M13 14Q20 8 27 14L25 30Q20 34 15 30Z' fill='%23c8a13a' fill-opacity='0.18' stroke='%23e9cf82' stroke-width='1.2'/%3E%3Ccircle cx='20' cy='20' r='3.5' fill='%23e9cf82'/%3E%3Cpath d='M15 32L25 32L23 36L17 36Z' fill='%237d692a'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Reem+Kufi:wght@400;500;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -67,7 +84,18 @@
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     text-align:center; padding: 80px 6vw 40px;
   }
-  .lantern-wrap{ width:120px; height:150px; margin-bottom: 18px; position:relative; }
+  .lantern-wrap{
+    width:120px; height:150px; margin-bottom: 18px; position:relative;
+    transition: transform .5s cubic-bezier(.22,1,.36,1);
+    animation: heroIn 1s cubic-bezier(.22,1,.36,1) both;
+  }
+  .lantern-wrap:hover{ transform: translateY(-6px) scale(1.04); }
+  .lantern-wrap svg{ transition: filter .5s ease; }
+  .lantern-wrap:hover svg{ filter: drop-shadow(0 0 14px rgba(233,207,130,0.55)); }
+  @keyframes heroIn{
+    0%{ opacity:0; transform: translateY(-16px) scale(0.9); }
+    100%{ opacity:1; transform: translateY(0) scale(1); }
+  }
   .lantern-glow{
     position:absolute; inset:-60px; border-radius:50%;
     background: radial-gradient(circle, rgba(233,207,130,0.35) 0%, rgba(200,161,58,0.08) 45%, transparent 70%);
@@ -83,23 +111,32 @@
     color: var(--gold); text-transform: uppercase; margin-bottom: 18px;
     border: 1px solid var(--line); padding: 6px 18px; border-radius: 999px;
     background: rgba(200,161,58,0.06);
+    animation: fadeUp .8s cubic-bezier(.22,1,.36,1) both; animation-delay: .1s;
   }
   .hero h1{
     font-family: var(--font-display); font-weight:700;
     font-size: clamp(3.2rem, 10vw, 7rem);
-    line-height:1.45;
+    line-height:1.35;
+    padding-top: 0.2em;
     background: linear-gradient(180deg, var(--gold-light) 10%, var(--gold) 55%, #a5822f 100%);
     -webkit-background-clip:text; background-clip:text; color:transparent;
     text-shadow: 0 0 60px rgba(200,161,58,0.25);
     margin-bottom: 6px;
+    animation: fadeUp .9s cubic-bezier(.22,1,.36,1) both; animation-delay: .2s;
   }
   .hero .tagline{
     font-family: var(--font-display); font-size: clamp(1.2rem, 3vw, 1.7rem);
     color: var(--parchment); opacity:0.92; margin-bottom: 10px;
+    animation: fadeUp .9s cubic-bezier(.22,1,.36,1) both; animation-delay: .32s;
   }
   .hero .desc{
     max-width: 560px; color: var(--muted); font-size: 1rem; line-height:1.9;
     margin-bottom: 40px;
+    animation: fadeUp .9s cubic-bezier(.22,1,.36,1) both; animation-delay: .42s;
+  }
+  @keyframes fadeUp{
+    0%{ opacity:0; transform: translateY(18px); }
+    100%{ opacity:1; transform: translateY(0); }
   }
 
   /* chat — the primary hero element */
@@ -111,6 +148,7 @@
     padding: 10px;
     box-shadow: 0 30px 80px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.03);
     position:relative;
+    animation: fadeUp 1s cubic-bezier(.22,1,.36,1) both; animation-delay: .52s;
   }
   .chat-hero::before{
     content:''; position:absolute; inset:-1px; border-radius:22px; padding:1px;
@@ -129,10 +167,22 @@
   .bubble.ai.typing span:nth-child(3){ animation-delay:0.4s; }
   @keyframes blink{ 0%,100%{opacity:0.25;} 50%{opacity:0.9;} }
   .bubble.ai.error{ border-color: rgba(180,70,60,0.4); background: rgba(120,40,35,0.18); color:#e8b8b0; }
-  .bubble{ max-width: 82%; padding: 12px 16px; border-radius: 14px; font-size:0.95rem; line-height:1.8; word-break: break-word; }
+  .bubble{ max-width: 82%; padding: 12px 16px; border-radius: 14px; font-size:0.95rem; line-height:1.8; word-break: break-word; animation: bubbleIn .45s cubic-bezier(.22,1,.36,1) both; }
+  @keyframes bubbleIn{
+    0%{ opacity:0; transform: translateY(14px) scale(0.97); }
+    100%{ opacity:1; transform: translateY(0) scale(1); }
+  }
   .bubble.user{ align-self:flex-start; background: rgba(200,161,58,0.12); border:1px solid var(--line); color: var(--gold-light); border-bottom-left-radius:4px; }
   .bubble.ai{ align-self:flex-end; background: rgba(30,90,68,0.18); border:1px solid rgba(30,90,68,0.4); color: var(--parchment); border-bottom-right-radius:4px; }
   .bubble.ai .src, .bubble.ai .source-tag{ display:block; margin-top:8px; font-size:0.75rem; color: var(--gold-light); font-family: var(--font-kufi); opacity:0.85; }
+  .typing-text{ display:inline; }
+  .typing-text:not(:empty)::after{
+    content:''; display:inline-block; width:2px; height:1em; margin-right:2px;
+    background: var(--gold-light); vertical-align:-2px;
+    animation: cursorBlink 0.9s steps(1) infinite;
+  }
+  .bubble.ai:has(.bubble-actions) .typing-text::after{ display:none; }
+  @keyframes cursorBlink{ 0%,49%{opacity:1;} 50%,100%{opacity:0;} }
     .bubble-actions{ display:flex; gap:8px; margin-top:10px; }
   .action-btn{
     display:flex; align-items:center; gap:5px;
@@ -240,6 +290,25 @@
     border-top: 1px solid var(--line); color: var(--muted); font-size:0.85rem;
   }
   footer .fbrand{ font-family: var(--font-display); color: var(--gold-light); font-size:1.4rem; margin-bottom:10px; }
+
+  /* ===== SCROLL REVEAL ===== */
+  .reveal{ opacity:0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
+  .reveal.in-view{ opacity:1; transform: translateY(0); }
+
+  /* ===== BACK TO TOP BUTTON ===== */
+  .back-to-top{
+    position: fixed; bottom: 26px; left: 26px; z-index: 90;
+    width: 46px; height: 46px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    border: none; cursor: pointer;
+    display: flex; align-items:center; justify-content:center;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.4);
+    opacity: 0; transform: translateY(16px) scale(0.9); pointer-events:none;
+    transition: opacity .3s ease, transform .3s ease;
+  }
+  .back-to-top.show{ opacity:1; transform: translateY(0) scale(1); pointer-events:auto; }
+  .back-to-top:hover{ transform: translateY(-3px) scale(1.05); }
+  .back-to-top svg{ width:20px; height:20px; }
 </style>
 </head>
 <body>
@@ -296,7 +365,7 @@
       </div>
     </div>
     <div class="chat-input-row">
-      <input type="text" id="chatInput" placeholder="اسأل طيبة عن السيرة النبوية..." autocomplete="off">
+      <input type="text" id="chatInput" placeholder="اسأل عن السيرة النبوية..." autocomplete="off">
       <button class="send-btn" id="sendBtn" aria-label="إرسال">
         <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L20 4L14 20L11 13L4 12Z" fill="#0d1726"/></svg>
       </button>
@@ -466,6 +535,13 @@
   <p>محمد عواد🤍</p>
 </footer>
 
+<!-- زر الرجوع لأعلى -->
+<button class="back-to-top" id="backToTop" aria-label="الرجوع لأعلى">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#0d1726" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 19V5"/><path d="M5 12l7-7 7 7"/>
+  </svg>
+</button>
+
 <script>
   // عناصر DOM
   const thread = document.getElementById('chatThread');
@@ -539,17 +615,65 @@
       if (response.ok && data.reply) {
         // عرض الإجابة وقسمة المصدر تلقائياً
         const { answer, source } = splitAnswerAndSource(data.reply);
-        
-        // إضافة الإجابة للشات
+
+        // إضافة فقاعة فاضية هيتكتب جواها النص تدريجياً
         const aiDiv = document.createElement('div');
         aiDiv.className = 'bubble ai';
-        
-        let innerHTML = answer.replace(/\n/g, '<br>');
-        if (source) {
-          innerHTML += `<span class="source-tag">${source}</span>`;
+        const textSpan = document.createElement('span');
+        textSpan.className = 'typing-text';
+        aiDiv.appendChild(textSpan);
+        thread.appendChild(aiDiv);
+        scrollToBottom();
+
+        // دالة الكتابة التدريجية (Streaming Text) كلمة كلمة
+        function streamText(container, text, onDone) {
+          const lines = text.split('\n');
+          let li = 0;
+          function nextLine() {
+            if (li > 0) container.appendChild(document.createElement('br'));
+            const words = lines[li].split(' ').filter(w => w.length);
+            let wi = 0;
+            const lineSpan = document.createElement('span');
+            container.appendChild(lineSpan);
+            function nextWord() {
+              if (wi < words.length) {
+                lineSpan.textContent += (wi > 0 ? ' ' : '') + words[wi];
+                wi++;
+                scrollToBottom();
+                setTimeout(nextWord, 28);
+              } else {
+                li++;
+                if (li < lines.length) setTimeout(nextLine, 28);
+                else if (onDone) onDone();
+              }
+            }
+            nextWord();
+          }
+          if (lines.length && lines[0].length === 0 && lines.length === 1) {
+            if (onDone) onDone();
+          } else {
+            nextLine();
+          }
         }
-        innerHTML += `
-          <div class="bubble-actions">
+
+        // بعد ما يخلص الكتابة، نضيف المصدر وأزرار النسخ/المشاركة
+        streamText(textSpan, answer, () => {
+          if (source) {
+            const srcSpan = document.createElement('span');
+            srcSpan.className = 'source-tag';
+            srcSpan.textContent = source;
+            srcSpan.style.opacity = '0';
+            aiDiv.appendChild(srcSpan);
+            requestAnimationFrame(() => {
+              srcSpan.style.transition = 'opacity .4s ease';
+              srcSpan.style.opacity = '1';
+            });
+          }
+
+          const actionsDiv = document.createElement('div');
+          actionsDiv.className = 'bubble-actions';
+          actionsDiv.style.opacity = '0';
+          actionsDiv.innerHTML = `
             <button class="action-btn copy-btn" title="نسخ الإجابة">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
               نسخ
@@ -557,33 +681,35 @@
             <button class="action-btn share-btn" title="مشاركة على واتساب">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36a9.9 9.9 0 0 0 4.62 1.14h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2z"/></svg>
               مشاركة
-            </button>
-          </div>`;
-        
-        aiDiv.innerHTML = innerHTML;
-        thread.appendChild(aiDiv);
-        scrollToBottom();
+            </button>`;
+          aiDiv.appendChild(actionsDiv);
+          requestAnimationFrame(() => {
+            actionsDiv.style.transition = 'opacity .4s ease';
+            actionsDiv.style.opacity = '1';
+          });
+          scrollToBottom();
 
-        // ربط زر النسخ
-        const copyBtn = aiDiv.querySelector('.copy-btn');
-        if (copyBtn) {
-          const originalHTML = copyBtn.innerHTML;
-          copyBtn.addEventListener('click', () => {
-            navigator.clipboard.writeText(answer).then(() => {
-              copyBtn.innerHTML = 'تم النسخ ✓';
-              setTimeout(() => { copyBtn.innerHTML = originalHTML; }, 1500);
+          // ربط زر النسخ
+          const copyBtn = actionsDiv.querySelector('.copy-btn');
+          if (copyBtn) {
+            const originalHTML = copyBtn.innerHTML;
+            copyBtn.addEventListener('click', () => {
+              navigator.clipboard.writeText(answer).then(() => {
+                copyBtn.innerHTML = 'تم النسخ ✓';
+                setTimeout(() => { copyBtn.innerHTML = originalHTML; }, 1500);
+              });
             });
-          });
-        }
+          }
 
-        // ربط زر المشاركة على واتساب
-        const shareBtn = aiDiv.querySelector('.share-btn');
-        if (shareBtn) {
-          shareBtn.addEventListener('click', () => {
-            const shareText = encodeURIComponent(answer + (source ? '\n\n' + source : '') + '\n\nمن موقع طيبة');
-            window.open(`https://wa.me/?text=${shareText}`, '_blank');
-          });
-        }
+          // ربط زر المشاركة على واتساب
+          const shareBtn = actionsDiv.querySelector('.share-btn');
+          if (shareBtn) {
+            shareBtn.addEventListener('click', () => {
+              const shareText = encodeURIComponent(answer + (source ? '\n\n' + source : '') + '\n\nمن موقع طيبة');
+              window.open(`https://wa.me/?text=${shareText}`, '_blank');
+            });
+          }
+        });
       } else {
         const errorDiv = document.createElement('div');
         errorDiv.className = 'bubble ai error';
@@ -621,6 +747,48 @@
       }
     });
   }
+
+  // ===== زر الرجوع لأعلى =====
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+      backToTop.classList.add('show');
+    } else {
+      backToTop.classList.remove('show');
+    }
+  });
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ===== أنيميشن الظهور التدريجي عند التمرير =====
+  (function initScrollReveal(){
+    const revealTargets = document.querySelectorAll(
+      '.section-head, .t-item, .g-card, .src-row'
+    );
+    revealTargets.forEach((el) => el.classList.add('reveal'));
+
+    // تأخير متتابع بسيط للبطاقات المتجاورة (Stagger)
+    const groups = [
+      document.querySelectorAll('.t-item'),
+      document.querySelectorAll('.g-card'),
+      document.querySelectorAll('.src-row')
+    ];
+    groups.forEach((group) => {
+      group.forEach((el, i) => { el.style.transitionDelay = (i % 6) * 70 + 'ms'; });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+
+    revealTargets.forEach((el) => observer.observe(el));
+  })();
 </script>
 </body>
 </html>
