@@ -1,8 +1,8 @@
 {
-  "name": "siraj-al-seerah",
+  "name": "tayba-al-seerah",
   "version": "1.0.0",
   "private": true,
-  "description": "موقع سِراج - سيرة النبي ﷺ بمساعدة الذكاء الاصطناعي",
+  "description": "موقع طيبة - سيرة النبي ﷺ بمساعدة الذكاء الاصطناعي",
   "scripts": {
     "dev": "vercel dev"
   },
