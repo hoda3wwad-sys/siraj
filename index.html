@@ -196,10 +196,13 @@
     display:flex; align-items:center; gap:10px;
     background: var(--bg-deep); border: 1px solid var(--line); border-radius: 14px;
     padding: 8px; margin: 8px;
+    max-width: calc(100% - 16px);
+  }
   }
   .chat-input-row input{
-    flex:1; background:transparent; border:none; outline:none; color: var(--parchment);
+    flex:1; min-width:0; background:transparent; border:none; outline:none; color: var(--parchment);
     font-family: var(--font-body); font-size: 1rem; padding: 10px 14px; text-align:right;
+  }
   }
   .chat-input-row input::placeholder{ color: #5c6c7e; }
   .send-btn{
