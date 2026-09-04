@@ -115,7 +115,7 @@
   }
   .hero h1{
     font-family: var(--font-display); font-weight:700;
-    font-size: clamp(3.2rem, 10vw, 7rem);
+    font-size: clamp(4.4rem, 16vw, 8rem);
     line-height:1.35;
     padding-top: 0.2em;
     background: linear-gradient(180deg, var(--gold-light) 10%, var(--gold) 55%, #a5822f 100%);
@@ -195,10 +195,10 @@
   .chat-input-row{
     display:flex; align-items:center; gap:10px;
     background: var(--bg-deep); border: 1px solid var(--line); border-radius: 14px;
-    padding: 8px; margin: 8px;
+    padding: 8px; margin: 8px; min-width: 0; overflow: hidden;
   }
   .chat-input-row input{
-    flex:1; background:transparent; border:none; outline:none; color: var(--parchment);
+    flex:1; min-width:0; background:transparent; border:none; outline:none; color: var(--parchment);
     font-family: var(--font-body); font-size: 1rem; padding: 10px 14px; text-align:right;
   }
   .chat-input-row input::placeholder{ color: #5c6c7e; }
@@ -217,6 +217,15 @@
     padding: 7px 14px; border-radius: 999px; cursor:pointer; transition: all .2s ease;
   }
   .chat-suggest button:hover{ color: var(--gold-light); border-color: var(--gold-dim); background: rgba(200,161,58,0.08); }
+  @media (max-width: 600px){
+    .chat-hero{ width: 94vw; padding: 6px; border-radius: 18px; }
+    .chat-thread{ padding: 14px 10px 6px; }
+    .chat-input-row{ margin: 6px; gap: 6px; }
+    .chat-input-row input{ padding: 9px 8px; font-size: .92rem; }
+    .send-btn{ width: 40px; height: 40px; }
+    .chat-suggest{ padding: 4px 10px 12px; gap: 6px; }
+    .chat-suggest button{ font-size: .76rem; padding: 6px 10px; }
+  }
 
   /* section shared */
   section{ position:relative; z-index:1; padding: 100px 6vw; }
@@ -586,6 +595,13 @@
     return { answer: text, source: '' };
   }
 
+  function cleanAnswerForDisplay(text) {
+    return text
+      .replace(/\*\*(.+?)\*\*/g, '$1')
+      .replace(/^\s*\*\s+/gm, '• ')
+      .replace(/(^|\s)\*([^*\n]+)\*(?=\s|$)/g, '$1$2');
+  }
+
   // دالة إرسال السؤال إلى Vercel API
   async function askAI(userText) {
     if (!userText || !userText.trim()) return;
@@ -657,11 +673,11 @@
         }
 
         // بعد ما يخلص الكتابة، نضيف المصدر وأزرار النسخ/المشاركة
-        streamText(textSpan, answer, () => {
+        streamText(textSpan, cleanAnswerForDisplay(answer), () => {
           if (source) {
             const srcSpan = document.createElement('span');
             srcSpan.className = 'source-tag';
-            srcSpan.textContent = source;
+            srcSpan.textContent = cleanAnswerForDisplay(source);
             srcSpan.style.opacity = '0';
             aiDiv.appendChild(srcSpan);
             requestAnimationFrame(() => {
