@@ -26,6 +26,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Reem+Kufi:wght@400;500;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
+      html{ color-scheme: dark; }
     --bg-deep: #070c14;
     --bg-panel: #0d1726;
     --bg-panel-2: #101f33;
@@ -199,9 +200,12 @@
     max-width: calc(100% - 16px);
   }
   }
-  .chat-input-row input{
-    flex:1; min-width:0; background:transparent; border:none; outline:none; color: var(--parchment);
+    .chat-input-row input{
+    flex:1; min-width:0; background:transparent !important; border:none; outline:none; color: var(--parchment);
     font-family: var(--font-body); font-size: 1rem; padding: 10px 14px; text-align:right;
+    -webkit-appearance:none; appearance:none;
+    color-scheme: dark;
+  }
   }
   }
   .chat-input-row input::placeholder{ color: #5c6c7e; }
